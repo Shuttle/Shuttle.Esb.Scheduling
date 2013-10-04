@@ -16,6 +16,7 @@ Simple Configuration
 
 Format is {minute} {hour} {day-of-month} {month} {day-of-week}
 
+<pre>
 {minutes} : 0-59 , - * /
 {hours} : 	0-23 , - * /
 {day-of-month} 1-31 , - * ? / L W
@@ -25,7 +26,7 @@ Format is {minute} {hour} {day-of-month} {month} {day-of-week}
 Examples:
 * * * * * - is every minute of every hour of every day of every month
 5,10-12,17/5 * * * * - minute 5, 10, 11, 12, and every 5th minute after that
-
+</pre>
 
 # But how does it fit together?
 

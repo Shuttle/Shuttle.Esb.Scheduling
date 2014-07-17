@@ -46,46 +46,28 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Castle.Core">
-      <HintPath>..\..\external-bin\castle\Castle.Core.dll</HintPath>
+      <HintPath>..\packages\Castle.Core.3.3.0\lib\net35\Castle.Core.dll</HintPath>
     </Reference>
     <Reference Include="Castle.Windsor">
-      <HintPath>..\..\external-bin\castle\Castle.Windsor.dll</HintPath>
+      <HintPath>..\packages\Castle.Windsor.3.3.0\lib\net35\Castle.Windsor.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
-      <HintPath>..\..\external-bin\log4net\log4net.dll</HintPath>
+      <HintPath>..\packages\log4net.2.0.3\lib\net35-full\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Shuttle.Core.Data">
-      <HintPath>..\..\external-bin\shuttle.core\$(Framework)\Shuttle.Core.Data.dll</HintPath>
-    </Reference>
-    <Reference Include="Shuttle.Core.Data.Castle">
-      <HintPath>..\..\external-bin\shuttle.core\$(Framework)\Shuttle.Core.Data.Castle.dll</HintPath>
+      <HintPath>..\packages\shuttle-core-data.3.0.2\lib\net35-full\Shuttle.Core.Data.dll</HintPath>
     </Reference>
     <Reference Include="Shuttle.Core.Domain">
-      <HintPath>..\..\external-bin\shuttle.core\$(Framework)\Shuttle.Core.Domain.dll</HintPath>
+      <HintPath>..\packages\shuttle-core-domain.3.0.2\lib\net35-full\Shuttle.Core.Domain.dll</HintPath>
     </Reference>
     <Reference Include="Shuttle.Core.Infrastructure">
-      <HintPath>..\..\external-bin\shuttle.core\$(Framework)\Shuttle.Core.Infrastructure.dll</HintPath>
-    </Reference>
-    <Reference Include="Shuttle.Core.Infrastructure.Castle">
-      <HintPath>..\..\external-bin\shuttle.core\$(Framework)\Shuttle.Core.Infrastructure.Castle.dll</HintPath>
+      <HintPath>..\packages\shuttle-core-infrastructure.3.0.2\lib\net35-full\Shuttle.Core.Infrastructure.dll</HintPath>
     </Reference>
     <Reference Include="Shuttle.Core.Infrastructure.Log4Net">
-      <HintPath>..\..\external-bin\shuttle.core\$(Framework)\Shuttle.Core.Infrastructure.Log4Net.dll</HintPath>
-    </Reference>
-    <Reference Include="Shuttle.Core.SqlServer">
-      <HintPath>..\..\external-bin\shuttle.core\$(Framework)\Shuttle.Core.SqlServer.dll</HintPath>
-    </Reference>
-    <Reference Include="Shuttle.ESB.Castle">
-      <HintPath>..\..\external-bin\shuttle.esb\$(Framework)\Shuttle.ESB.Castle.dll</HintPath>
+      <HintPath>..\packages\shuttle-core-infrastructure-log4net.3.0.2\lib\net35-full\Shuttle.Core.Infrastructure.Log4Net.dll</HintPath>
     </Reference>
     <Reference Include="Shuttle.ESB.Core">
-      <HintPath>..\..\external-bin\shuttle.esb\$(Framework)\Shuttle.ESB.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Shuttle.ESB.Msmq">
-      <HintPath>..\..\external-bin\shuttle.esb\$(Framework)\Shuttle.ESB.Msmq.dll</HintPath>
-    </Reference>
-    <Reference Include="Shuttle.ESB.SqlServer">
-      <HintPath>..\..\external-bin\shuttle.esb\$(Framework)\Shuttle.ESB.SqlServer.dll</HintPath>
+      <HintPath>..\packages\shuttle-esb-core.3.0.0-rc1\lib\net35-full\Shuttle.ESB.Core.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -96,13 +78,26 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Cron\CronDayOfMonth.cs" />
+    <Compile Include="Cron\CronDayOfWeek.cs" />
+    <Compile Include="Cron\CronException.cs" />
+    <Compile Include="Cron\CronExpression.cs" />
+    <Compile Include="Cron\CronField.cs" />
+    <Compile Include="Cron\CronHour.cs" />
+    <Compile Include="Cron\CronMinute.cs" />
+    <Compile Include="Cron\CronMonth.cs" />
+    <Compile Include="Cron\Specifications\ISpecification.cs" />
+    <Compile Include="Cron\Specifications\LastDayOfMonthSpecification.cs" />
+    <Compile Include="Cron\Specifications\LastWeekDayOfMonthSpecification.cs" />
+    <Compile Include="Cron\Specifications\RangeSpecification.cs" />
+    <Compile Include="Cron\Specifications\WeekDayOccurenceSpecification.cs" />
     <Compile Include="DataAccess\MappedColumns\ScheduleColumns.cs" />
     <Compile Include="DataAccess\Mappers\IScheduleRowMapper.cs" />
-    <Compile Include="DataAccess\Queries\Definitions\ScheduleQueries.cs" />
     <Compile Include="DataAccess\Queries\IScheduleQuery.cs" />
+    <Compile Include="DataAccess\Queries\IScheduleQueryFactory.cs" />
     <Compile Include="DataAccess\Queries\ScheduleQuery.cs" />
+    <Compile Include="DataAccess\Queries\ScheduleQueryFactory.cs" />
     <Compile Include="DataAccess\SchedulerData.cs" />
-    <Compile Include="DataAccess\TableAccess\ScheduleTableAccess.cs" />
     <Compile Include="Domain\EmptySchedule.cs" />
     <Compile Include="Domain\Events\SendNotification.cs" />
     <Compile Include="Domain\Events\SendNotificationDomainHandler.cs" />
@@ -111,12 +106,22 @@
     <Compile Include="Domain\Schedule.cs" />
     <Compile Include="Domain\ScheduleFactory.cs" />
     <Compile Include="DataAccess\ScheduleRepository.cs" />
-    <Compile Include="Messages\RemoveScheduleCommand.cs" />
-    <Compile Include="Messages\SaveScheduleCommand.cs" />
-    <Compile Include="Messages\ScheduleRemovedEvent.cs" />
     <Compile Include="Messages\RunScheduleCommand.cs" />
-    <Compile Include="Messages\ScheduleSavedEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SchedulingResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SchedulingResources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SchedulingResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>SchedulingResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

@@ -2,18 +2,16 @@ using System;
 using System.Threading;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
+using Shuttle.ESB.Modules;
 using log4net;
 using log4net.Config;
 using Shuttle.Core.Data;
-using Shuttle.Core.Data.Castle;
 using Shuttle.Core.Domain;
 using Shuttle.Core.Domain.Castle;
 using Shuttle.Core.Host;
 using Shuttle.Core.Infrastructure;
-using Shuttle.Core.Infrastructure.Castle;
 using Shuttle.Core.Infrastructure.Log4Net;
 using Shuttle.ESB.Core;
-using Shuttle.ESB.Modules.ActiveTimeRange;
 using Shuttle.ESB.SqlServer;
 
 namespace Shuttle.Scheduling.Server
@@ -46,19 +44,59 @@ namespace Shuttle.Scheduling.Server
 
 			Log.Assign(new Log4NetLog(LogManager.GetLogger(typeof (Program))));
 
-            ConnectionStrings.Approve();
+            new ConnectionStringService().Approve();
 
-            container.RegisterSingleton("Shuttle.Core.Infrastructure", RegexPatterns.EndsWith("Factory"));
-			container.RegisterSingleton("Shuttle.Core.Infrastructure", RegexPatterns.EndsWith("Mapper"));
+			container.Register(Component.For<IDatabaseConnectionCache>()
+										.ImplementedBy<ThreadStaticDatabaseConnectionCache>());
 
-			container.RegisterDataAccessCore();
-			container.RegisterDataAccessDefaults();
+			container.Register(Component.For<IDbConnectionConfiguration>()
+										.ImplementedBy<DbConnectionConfiguration>());
 
-			container.Register(Component.For<IDatabaseConnectionCache>().ImplementedBy<ThreadStaticDatabaseConnectionCache>());
+			container.Register(Component.For<IDatabaseGateway>().ImplementedBy<DatabaseGateway>());
+			container.Register(Component.For<IDatabaseConnectionFactory>().ImplementedBy<DatabaseConnectionFactory>());
+			container.Register(Component.For(typeof(IDataRepository<>)).ImplementedBy(typeof(DataRepository<>)));
 
-			container.RegisterDataAccess("Shuttle.Scheduling");
-			container.RegisterSingleton("Shuttle.Scheduling", RegexPatterns.EndsWith("Factory"));
-			container.RegisterSingleton("Shuttle.Scheduling", RegexPatterns.EndsWith("DomainHandler"));
+			container.Register(
+				Classes
+					.FromAssemblyNamed("Shuttle.Core.Data")
+					.Pick()
+					.If(type => type.Name.EndsWith("Factory"))
+					.Configure(configurer => configurer.Named(configurer.Implementation.Name.ToLower()))
+					.WithService.Select((type, basetype) => new[] { type.InterfaceMatching(RegexPatterns.EndsWith("Factory")) }));
+
+			container.Register(
+				Classes
+					.FromAssemblyNamed("Shuttle.Scheduling")
+					.BasedOn(typeof(IDataRowMapper<>))
+					.WithServiceFirstInterface());
+
+			container.Register(
+				Classes
+					.FromAssemblyNamed("Shuttle.Scheduling")
+					.Pick()
+					.If(type => type.Name.EndsWith("Repository"))
+					.WithServiceFirstInterface());
+
+			container.Register(
+				Classes
+					.FromAssemblyNamed("Shuttle.Scheduling")
+					.Pick()
+					.If(type => type.Name.EndsWith("Query"))
+					.WithServiceFirstInterface());
+
+			container.Register(
+				Classes
+					.FromAssemblyNamed("Shuttle.Scheduling")
+					.Pick()
+					.If(type => type.Name.EndsWith("QueryFactory"))
+					.WithServiceFirstInterface());
+
+			container.Register(
+				Classes
+					.FromAssemblyNamed("Shuttle.Scheduling")
+					.Pick()
+					.If(type => type.Name.EndsWith("DomainHandler"))
+					.WithServiceFirstInterface());
 
             DomainEvents.Assign(new DomainEventDispatcher(container));
 
@@ -68,7 +106,7 @@ namespace Shuttle.Scheduling.Server
 				.AddModule(new ActiveTimeRangeModule())
 				.Start();
 
-			container.Register(bus);
+			container.Register(Component.For<IServiceBus>().Instance(bus));
 
 			repository = container.Resolve<IScheduleRepository>();
 			databaseConnectionFactory = container.Resolve<IDatabaseConnectionFactory>();

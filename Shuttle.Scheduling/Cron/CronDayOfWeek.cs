@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace Shuttle.Scheduling
 {
-	internal class CronDayOfWeek : CronField
+	public class CronDayOfWeek : CronField
 	{
 		private readonly Regex WeekdayOccurrenceExpression = new Regex(@"^(?<day>\d)\#(?<occurrence>\d)$",
 		                                                               RegexOptions.IgnoreCase);

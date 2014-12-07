@@ -2,7 +2,7 @@ using System;
 
 namespace Shuttle.Scheduling
 {
-	internal class CronHour : CronField
+	public class CronHour : CronField
 	{
 		public CronHour(string value) : base(value)
 		{

@@ -112,11 +112,11 @@
     <Compile Include="Cron\Specifications\WeekDayOccurenceSpecification.cs" />
     <Compile Include="DataAccess\MappedColumns\ScheduleColumns.cs" />
     <Compile Include="DataAccess\Mappers\ScheduleRowMapper.cs" />
-    <Compile Include="DataAccess\Queries\Definitions\ScheduleQueries.cs" />
     <Compile Include="DataAccess\Queries\IScheduleQuery.cs" />
+    <Compile Include="DataAccess\Queries\IScheduleQueryFactory.cs" />
     <Compile Include="DataAccess\Queries\ScheduleQuery.cs" />
+    <Compile Include="DataAccess\Queries\ScheduleQueryFactory.cs" />
     <Compile Include="DataAccess\SchedulerData.cs" />
-    <Compile Include="DataAccess\TableAccess\ScheduleTableAccess.cs" />
     <Compile Include="Domain\EmptySchedule.cs" />
     <Compile Include="Domain\Events\SendNotification.cs" />
     <Compile Include="Domain\Events\SendNotificationDomainHandler.cs" />
@@ -125,11 +125,7 @@
     <Compile Include="Domain\Schedule.cs" />
     <Compile Include="Domain\ScheduleFactory.cs" />
     <Compile Include="DataAccess\ScheduleRepository.cs" />
-    <Compile Include="Messages\RemoveScheduleCommand.cs" />
-    <Compile Include="Messages\SaveScheduleCommand.cs" />
-    <Compile Include="Messages\ScheduleRemovedEvent.cs" />
     <Compile Include="Messages\RunScheduleCommand.cs" />
-    <Compile Include="Messages\ScheduleSavedEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SchedulingResources.Designer.cs">
       <AutoGen>True</AutoGen>

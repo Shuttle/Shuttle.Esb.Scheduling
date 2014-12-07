@@ -6,7 +6,7 @@ using Shuttle.Core.Infrastructure;
 
 namespace Shuttle.Scheduling
 {
-	internal enum ExpressionType
+	public enum ExpressionType
 	{
 		Default,
 		All,
@@ -19,7 +19,7 @@ namespace Shuttle.Scheduling
 		Skipped
 	}
 
-	internal abstract class CronField : ISpecification<object>
+	public abstract class CronField : ISpecification<object>
 	{
 		protected readonly Regex RangeExpression =
 			new Regex(

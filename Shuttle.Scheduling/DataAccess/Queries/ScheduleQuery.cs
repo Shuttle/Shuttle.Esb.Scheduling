@@ -1,18 +1,25 @@
-﻿using Shuttle.Core.Data;
+using Shuttle.Core.Data;
+using Shuttle.Core.Infrastructure;
 
 namespace Shuttle.Scheduling
 {
 	public class ScheduleQuery : IScheduleQuery
 	{
-		public IDatabaseGateway DatabaseGateway { get; set; }
-		public IDatabaseConnectionFactory DatabaseConnectionFactory { get; set; }
+		private readonly IDatabaseGateway _databaseGateway;
+		private readonly IScheduleQueryFactory _queryFactory;
+
+		public ScheduleQuery(IDatabaseGateway databaseGateway, IScheduleQueryFactory queryFactory)
+		{
+			Guard.AgainstNull(databaseGateway, "databaseGateway");
+			Guard.AgainstNull(queryFactory, "queryFactory");
+
+			_databaseGateway = databaseGateway;
+			_queryFactory = queryFactory;
+		}
 
 		public bool HasScheduleStructures(DataSource source)
 		{
-			using (DatabaseConnectionFactory.Create(source))
-			{
-				return DatabaseGateway.GetScalarUsing<int>(source, ScheduleQueries.HasScheduleStructures()) == 1;
-			}
+			return _databaseGateway.GetScalarUsing<int>(source, _queryFactory.HasScheduleStructures()) == 1;
 		}
 	}
 }

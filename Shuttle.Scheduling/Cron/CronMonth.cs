@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace Shuttle.Scheduling
 {
-	internal class CronMonth : CronField
+	public class CronMonth : CronField
 	{
 		private static readonly Regex MonthExpression = new Regex("jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec",
 		                                                          RegexOptions.IgnoreCase);

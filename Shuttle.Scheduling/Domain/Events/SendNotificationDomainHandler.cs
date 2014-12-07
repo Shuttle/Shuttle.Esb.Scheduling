@@ -8,24 +8,29 @@ namespace Shuttle.Scheduling
 {
 	public class SendNotificationDomainHandler : IDomainEventHandler<SendNotification>
 	{
-		private readonly IScheduleRepository scheduleRepository;
+		private readonly IServiceBus _bus;
+		private readonly IDatabaseConnectionFactory _databaseConnectionFactory;
+		private readonly IScheduleRepository _scheduleRepository;
+
 		private readonly ILog _log;
 
-		public SendNotificationDomainHandler(IScheduleRepository scheduleRepository)
+		public SendNotificationDomainHandler(IServiceBus bus, IDatabaseConnectionFactory databaseConnectionFactory, IScheduleRepository scheduleRepository)
 		{
+			Guard.AgainstNull(bus, "bus");
+			Guard.AgainstNull(databaseConnectionFactory, "databaseConnectionFactory");
 			Guard.AgainstNull(scheduleRepository, "scheduleRepository");
 
-			this.scheduleRepository = scheduleRepository;
+			_scheduleRepository = scheduleRepository;
+			_bus = bus;
+			_databaseConnectionFactory = databaseConnectionFactory;
 
 			_log = Log.For(this);
 		}
 
-		public IServiceBus Bus { get; set; }
-		public IDatabaseConnectionFactory DatabaseConnectionFactory { get; set; }
 
 		public void Handle(SendNotification args)
 		{
-			using (DatabaseConnectionFactory.Create(SchedulerData.Source))
+			using (_databaseConnectionFactory.Create(SchedulerData.Source))
 			{
 				var message = new RunScheduleCommand
 								{
@@ -35,11 +40,11 @@ namespace Shuttle.Scheduling
 									ServerName = Environment.MachineName
 								};
 
-				scheduleRepository.SaveNextNotification(args.Schedule);
+				_scheduleRepository.SaveNextNotification(args.Schedule);
 
-				Bus.Send(message, c=> c.WithRecipient(args.Schedule.InboxWorkQueueUri));
+				_bus.Send(message, c => c.WithRecipient(args.Schedule.InboxWorkQueueUri));
 
-				_log.Debug(string.Format("[RunScheduleCommand] : name '{0}' / inbox work queue uri = '{1}'", message.Name, args.Schedule.InboxWorkQueueUri));
+				_log.For(this).Debug(string.Format("[RunScheduleCommand] : name = '{0}' / recipient inbox work queue uri = '{1}'.", message.Name, args.Schedule.InboxWorkQueueUri));
 			}
 		}
 	}

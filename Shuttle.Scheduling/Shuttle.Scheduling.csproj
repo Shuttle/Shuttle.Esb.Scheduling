@@ -1,0 +1,168 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{EBB6B69C-7B98-44D9-9EB1-16029FC1237E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Shuttle.Scheduling</RootNamespace>
+    <AssemblyName>Shuttle.Scheduling</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Framework Condition=" '$(Framework)' == '' ">net35-full</Framework>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Framework)' == 'net35-full'">
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <DefineConstants>$(DefineConstants);NET35FULL</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Framework)' == 'net40-full'">
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <DefineConstants>$(DefineConstants);NET40FULL</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Framework)' == 'net45-full'">
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <DefineConstants>$(DefineConstants);NET45FULL</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Framework)' == 'net451-full'">
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <DefineConstants>$(DefineConstants);NET451FULL</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Castle.Core">
+      <HintPath>..\packages\Castle.Core.3.3.3\lib\net35\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Windsor">
+      <HintPath>..\packages\Castle.Windsor.3.3.0\lib\net35\Castle.Windsor.dll</HintPath>
+    </Reference>
+    <Reference Include="RabbitMQ.Client, Version=3.4.0.0, Culture=neutral, PublicKeyToken=89e7d7c5feba84ce, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\RabbitMQ.Client.3.4.0\lib\net35\RabbitMQ.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Shuttle.Core.Data">
+      <HintPath>..\packages\shuttle-core-data.3.1.5\lib\net35-full\Shuttle.Core.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Shuttle.Core.Domain">
+      <HintPath>..\packages\shuttle-core-domain.3.1.5\lib\net35-full\Shuttle.Core.Domain.dll</HintPath>
+    </Reference>
+    <Reference Include="Shuttle.Core.Domain.Castle">
+      <HintPath>..\packages\shuttle-core-domain-castle.3.1.5\lib\net35-full\Shuttle.Core.Domain.Castle.dll</HintPath>
+    </Reference>
+    <Reference Include="Shuttle.Core.Infrastructure">
+      <HintPath>..\packages\shuttle-core-infrastructure.3.1.5\lib\net35-full\Shuttle.Core.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Shuttle.ESB.Castle">
+      <HintPath>..\packages\shuttle-esb-castle.3.3.10\lib\net35-full\Shuttle.ESB.Castle.dll</HintPath>
+    </Reference>
+    <Reference Include="Shuttle.ESB.Core">
+      <HintPath>..\packages\shuttle-esb-core.3.3.9\lib\net35-full\Shuttle.ESB.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Shuttle.ESB.Msmq">
+      <HintPath>..\packages\shuttle-esb-msmq.3.3.9\lib\net35-full\Shuttle.ESB.Msmq.dll</HintPath>
+    </Reference>
+    <Reference Include="Shuttle.ESB.RabbitMQ">
+      <HintPath>..\packages\shuttle-esb-rabbitmq.3.3.10\lib\net35-full\Shuttle.ESB.RabbitMQ.dll</HintPath>
+    </Reference>
+    <Reference Include="Shuttle.ESB.SqlServer">
+      <HintPath>..\packages\shuttle-esb-sqlserver.3.3.9\lib\net35-full\Shuttle.ESB.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.XML" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\SharedAssemblyInfo.cs">
+      <Link>Properties\SharedAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="Cron\CronDayOfMonth.cs" />
+    <Compile Include="Cron\CronDayOfWeek.cs" />
+    <Compile Include="Cron\CronException.cs" />
+    <Compile Include="Cron\CronExpression.cs" />
+    <Compile Include="Cron\CronField.cs" />
+    <Compile Include="Cron\CronHour.cs" />
+    <Compile Include="Cron\CronMinute.cs" />
+    <Compile Include="Cron\CronMonth.cs" />
+    <Compile Include="Cron\Specifications\ISpecification.cs" />
+    <Compile Include="Cron\Specifications\LastDayOfMonthSpecification.cs" />
+    <Compile Include="Cron\Specifications\LastWeekDayOfMonthSpecification.cs" />
+    <Compile Include="Cron\Specifications\RangeSpecification.cs" />
+    <Compile Include="Cron\Specifications\WeekDayOccurenceSpecification.cs" />
+    <Compile Include="DataAccess\MappedColumns\ScheduleColumns.cs" />
+    <Compile Include="DataAccess\Mappers\ScheduleRowMapper.cs" />
+    <Compile Include="DataAccess\Queries\Definitions\ScheduleQueries.cs" />
+    <Compile Include="DataAccess\Queries\IScheduleQuery.cs" />
+    <Compile Include="DataAccess\Queries\ScheduleQuery.cs" />
+    <Compile Include="DataAccess\SchedulerData.cs" />
+    <Compile Include="DataAccess\TableAccess\ScheduleTableAccess.cs" />
+    <Compile Include="Domain\EmptySchedule.cs" />
+    <Compile Include="Domain\Events\SendNotification.cs" />
+    <Compile Include="Domain\Events\SendNotificationDomainHandler.cs" />
+    <Compile Include="Domain\IScheduleFactory.cs" />
+    <Compile Include="Domain\IScheduleRepository.cs" />
+    <Compile Include="Domain\Schedule.cs" />
+    <Compile Include="Domain\ScheduleFactory.cs" />
+    <Compile Include="DataAccess\ScheduleRepository.cs" />
+    <Compile Include="Messages\RemoveScheduleCommand.cs" />
+    <Compile Include="Messages\SaveScheduleCommand.cs" />
+    <Compile Include="Messages\ScheduleRemovedEvent.cs" />
+    <Compile Include="Messages\RunScheduleCommand.cs" />
+    <Compile Include="Messages\ScheduleSavedEvent.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SchedulingResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SchedulingResources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SchedulingResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>SchedulingResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>md "..\..\..\..\build\$(ConfigurationName)\$(Framework)"
+copy "$(TargetPath)" "..\..\..\..\build\$(ConfigurationName)\$(Framework)"</PostBuildEvent>
+  </PropertyGroup>
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

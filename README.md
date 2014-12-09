@@ -1,9 +1,13 @@
 # shuttle-scheduling
-==================
+====================
 
 A simple scheduling solution built on Shuttle ESB.
 
+Download the latest release source code and then build from the command prompt:
 
+> .\shuttle-scheduling\.build\msbuild package.msbuild
+
+You will see the `deployment` folder under `shuttle-scheduling\.build` that will contain the binaries for the various configuration/framework versions.
 
 ## Simple Configuration
 --------------------

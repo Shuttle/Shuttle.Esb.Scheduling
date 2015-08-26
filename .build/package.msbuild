@@ -1,18 +1,21 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Deploy" ToolsVersion="4.0">
+	<PropertyGroup>
+		<DeploymentFolder>deployment</DeploymentFolder>
+		<NuGetExecutablePath>..\.nuget\nuget.exe</NuGetExecutablePath>
+		<PackageAssembly>Shuttle.Scheduling</PackageAssembly>
+		<PackageName>shuttle-scheduling</PackageName>
+	</PropertyGroup>
+
 	<Import Project="Shuttle.Core.MSBuild.targets" />
 
 	<ItemGroup>
 		<Framework Include="net35-full;net40-full;net45-full;net451-full" />
-		
-		<ProjectReference Include="..\Shuttle.Scheduling\Shuttle.Scheduling.csproj" />
-		<ProjectReference Include="..\Shuttle.Scheduling.Server\Shuttle.Scheduling.Server.csproj" />
+		<ProjectReference Include="..\$(PackageAssembly)\$(PackageAssembly).csproj" />
 	</ItemGroup>
 
 	<Target Name="Build">
-		<MSBuild Projects="@(ProjectReference)" Targets="Rebuild"/>
-
-		<Copy SourceFiles="app.config" DestinationFiles="$(OutputPath)\Shuttle.Scheduling.Server.dll.config" SkipUnchangedFiles="false" />
-		<Copy SourceFiles="Schedule.sql" DestinationFiles="$(OutputPath)\database\Schedule.sql" SkipUnchangedFiles="false" />
+		<MSBuild Projects="@(ProjectReference)" Targets="Rebuild" Properties="Configuration=Debug;Framework=%(Framework.Identity);OutputPath=$(MSBuildProjectDirectory)\deployment\debug\%(Framework.Identity)"/>
+		<MSBuild Projects="@(ProjectReference)" Targets="Rebuild" Properties="Configuration=Release;Framework=%(Framework.Identity);OutputPath=$(MSBuildProjectDirectory)\deployment\release\%(Framework.Identity)"/>
 	</Target>
 
 	<Target Name="Deploy">
@@ -32,13 +35,20 @@
 		<MSBuild
             Projects="$(MSBuildProjectFile)"
             Targets="Build"
-			Properties="Configuration=Debug;Framework=%(Framework.Identity);OutputPath=$(MSBuildProjectDirectory)\deployment\debug\%(Framework.Identity)"
         />
 
-		<MSBuild
-            Projects="$(MSBuildProjectFile)"
-            Targets="Build"
-			Properties="Configuration=Release;Framework=%(Framework.Identity);OutputPath=$(MSBuildProjectDirectory)\deployment\release\%(Framework.Identity)"
-        />
+		<ItemGroup>
+			<NugetBinaries Include="$(DeploymentFolder)\release\**\$(PackageAssembly).dll" />
+		</ItemGroup>
+
+		<Copy SourceFiles="package.nuspec" DestinationFolder="$(DeploymentFolder)\nuget\" SkipUnchangedFiles="false" />
+		<Copy SourceFiles="@(NugetBinaries)" DestinationFolder="$(DeploymentFolder)\nuget\lib\%(RecursiveDir)" SkipUnchangedFiles="false" />
+
+		<RegexFindAndReplace Files="$(DeploymentFolder)\nuget\package.nuspec" FindExpression="\{semver\}" ReplacementText="$(SemanticVersion)" />
+		<RegexFindAndReplace Files="$(DeploymentFolder)\nuget\package.nuspec" FindExpression="\{year\}" ReplacementText="$([System.DateTime]::Now.ToString(`yyyy`))" />
+		<SetNugetPackageVersions Files="$(DeploymentFolder)\nuget\package.nuspec" PackageFolder="..\packages" />
+
+		<Exec Command="$(NuGetExecutablePath) pack $(DeploymentFolder)\nuget\package.nuspec -OutputDirectory $(DeploymentFolder)\nuget -NoPackageAnalysis" />
+		<Exec Command="$(NuGetExecutablePath) push $(DeploymentFolder)\nuget\$(PackageName).$(SemanticVersion).nupkg" Condition="$(Operation) != 'pack-only'" />
 	</Target>
 </Project>

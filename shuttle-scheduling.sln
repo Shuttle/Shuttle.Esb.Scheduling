@@ -11,6 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".build", ".build", "{16CE84
 	ProjectSection(SolutionItems) = preProject
 		.build\app.config = .build\app.config
 		.build\package.msbuild = .build\package.msbuild
+		.build\package.nuspec = .build\package.nuspec
 		.build\Schedule.sql = .build\Schedule.sql
 		.build\Shuttle.Core.MSBuild.dll = .build\Shuttle.Core.MSBuild.dll
 		.build\Shuttle.Core.MSBuild.targets = .build\Shuttle.Core.MSBuild.targets
@@ -26,7 +27,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shuttle.Scheduling", "Shutt
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shuttle.Scheduling.Server", "Shuttle.Scheduling.Server\Shuttle.Scheduling.Server.csproj", "{158B4F4C-5AF8-4FDC-9E3F-72DE0E01B9E4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shuttle.Scheduling.Test", "Shuttle.Scheduling.Test\Shuttle.Scheduling.Test.csproj", "{17F8D263-A221-44FB-ADAB-008E7DA5DE62}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shuttle.Scheduling.Tests", "Shuttle.Scheduling.Tests\Shuttle.Scheduling.Tests.csproj", "{17F8D263-A221-44FB-ADAB-008E7DA5DE62}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

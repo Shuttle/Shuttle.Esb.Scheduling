@@ -7,14 +7,10 @@ using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using log4net;
 using Shuttle.Core.Data;
-using Shuttle.Core.Domain;
-using Shuttle.Core.Domain.Castle;
 using Shuttle.Core.Host;
 using Shuttle.Core.Infrastructure;
 using Shuttle.Core.Infrastructure.Log4Net;
 using Shuttle.ESB.Core;
-using Shuttle.ESB.Modules;
-using Shuttle.ESB.SqlServer;
 
 namespace Shuttle.Scheduling.Server
 {
@@ -110,19 +106,7 @@ namespace Shuttle.Scheduling.Server
 					.If(type => type.Name.EndsWith("Factory"))
 					.WithServiceFirstInterface());
 
-			_container.Register(
-				Classes
-					.FromAssemblyNamed(shuttleScheduling)
-					.Pick()
-					.If(type => type.Name.EndsWith("DomainHandler"))
-					.WithServiceFirstInterface());
-
-			DomainEvents.Assign(new DomainEventDispatcher(_container));
-
-			_bus = ServiceBus.Create(c => c
-				.SubscriptionManager(SubscriptionManager.Default())
-				.AddModule(new ActiveTimeRangeModule()))
-				.Start();
+			_bus = ServiceBus.Create().Start();
 
 			_container.Register(Component.For<IServiceBus>().Instance(_bus).LifestyleSingleton());
 
@@ -142,7 +126,18 @@ namespace Shuttle.Scheduling.Server
 				{
 					foreach (var schedule in _repository.All())
 					{
-						schedule.CheckNotification();
+						var command = schedule.Notification();
+
+						if (command == null)
+						{
+							continue;
+						}
+
+						var commandSchedule = schedule;
+
+						_bus.Send(command, c => c.WithRecipient(commandSchedule.InboxWorkQueueUri));
+
+						_repository.Save(schedule);
 					}
 				}
 

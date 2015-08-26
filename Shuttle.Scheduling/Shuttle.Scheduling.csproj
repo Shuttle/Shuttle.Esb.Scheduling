@@ -51,57 +51,23 @@
     <DefineConstants>$(DefineConstants);NET451FULL</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Castle.Core">
-      <HintPath>..\packages\Castle.Core.3.3.3\lib\net35\Castle.Core.dll</HintPath>
+    <Reference Include="Shuttle.Core.Data, Version=3.1.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\shuttle-core-data.3.1.6\lib\net35-full\Shuttle.Core.Data.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Castle.Windsor">
-      <HintPath>..\packages\Castle.Windsor.3.3.0\lib\net35\Castle.Windsor.dll</HintPath>
-    </Reference>
-    <Reference Include="RabbitMQ.Client, Version=3.4.0.0, Culture=neutral, PublicKeyToken=89e7d7c5feba84ce, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\RabbitMQ.Client.3.4.0\lib\net35\RabbitMQ.Client.dll</HintPath>
-    </Reference>
-    <Reference Include="Shuttle.Core.Data">
-      <HintPath>..\packages\shuttle-core-data.3.1.5\lib\net35-full\Shuttle.Core.Data.dll</HintPath>
-    </Reference>
-    <Reference Include="Shuttle.Core.Domain">
-      <HintPath>..\packages\shuttle-core-domain.3.1.5\lib\net35-full\Shuttle.Core.Domain.dll</HintPath>
-    </Reference>
-    <Reference Include="Shuttle.Core.Domain.Castle">
-      <HintPath>..\packages\shuttle-core-domain-castle.3.1.5\lib\net35-full\Shuttle.Core.Domain.Castle.dll</HintPath>
-    </Reference>
-    <Reference Include="Shuttle.Core.Infrastructure">
+    <Reference Include="Shuttle.Core.Infrastructure, Version=3.1.5.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\shuttle-core-infrastructure.3.1.5\lib\net35-full\Shuttle.Core.Infrastructure.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Shuttle.ESB.Castle, Version=3.4.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\shuttle-esb-castle.3.4.1\lib\net35-full\Shuttle.ESB.Castle.dll</HintPath>
-    </Reference>
-    <Reference Include="Shuttle.ESB.Core, Version=3.4.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\shuttle-esb-core.3.4.1\lib\net35-full\Shuttle.ESB.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Shuttle.ESB.Msmq, Version=3.4.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\shuttle-esb-msmq.3.4.1\lib\net35-full\Shuttle.ESB.Msmq.dll</HintPath>
-    </Reference>
-    <Reference Include="Shuttle.ESB.RabbitMQ, Version=3.4.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\shuttle-esb-rabbitmq.3.4.1\lib\net35-full\Shuttle.ESB.RabbitMQ.dll</HintPath>
-    </Reference>
-    <Reference Include="Shuttle.ESB.SqlServer, Version=3.4.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\shuttle-esb-sqlserver.3.4.1\lib\net35-full\Shuttle.ESB.SqlServer.dll</HintPath>
+    <Reference Include="Shuttle.ESB.Core, Version=3.6.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\shuttle-esb-core.3.6.5\lib\net35-full\Shuttle.ESB.Core.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
-    <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\SharedAssemblyInfo.cs">
-      <Link>Properties\SharedAssemblyInfo.cs</Link>
-    </Compile>
     <Compile Include="Cron\CronDayOfMonth.cs" />
     <Compile Include="Cron\CronDayOfWeek.cs" />
     <Compile Include="Cron\CronException.cs" />
@@ -123,15 +89,16 @@
     <Compile Include="DataAccess\Queries\ScheduleQueryFactory.cs" />
     <Compile Include="DataAccess\SchedulerData.cs" />
     <Compile Include="Domain\EmptySchedule.cs" />
-    <Compile Include="Domain\Events\SendNotification.cs" />
-    <Compile Include="Domain\Events\SendNotificationDomainHandler.cs" />
-    <Compile Include="Domain\IScheduleFactory.cs" />
     <Compile Include="Domain\IScheduleRepository.cs" />
     <Compile Include="Domain\Schedule.cs" />
-    <Compile Include="Domain\ScheduleFactory.cs" />
     <Compile Include="DataAccess\ScheduleRepository.cs" />
+    <Compile Include="Handlers\RemoveScheduleHandler.cs" />
+    <Compile Include="Handlers\SaveScheduleHandler.cs" />
+    <Compile Include="Messages\RemoveScheduleCommand.cs" />
     <Compile Include="Messages\RunScheduleCommand.cs" />
+    <Compile Include="Messages\SaveScheduleCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SchedulingData.cs" />
     <Compile Include="SchedulingResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

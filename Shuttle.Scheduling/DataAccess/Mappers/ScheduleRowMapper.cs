@@ -5,20 +5,13 @@ namespace Shuttle.Scheduling
 {
 	public class ScheduleRowMapper : IDataRowMapper<Schedule>
 	{
-		private readonly IScheduleFactory scheduleFactory;
-
-		public ScheduleRowMapper(IScheduleFactory scheduleFactory)
-		{
-			this.scheduleFactory = scheduleFactory;
-		}
-
 		public MappedRow<Schedule> Map(DataRow row)
 		{
 			return new MappedRow<Schedule>(row,
-			                               scheduleFactory.Build(ScheduleColumns.Name.MapFrom(row),
-			                                                     ScheduleColumns.InboxWorkQueueUri.MapFrom(row),
-			                                                     ScheduleColumns.CronExpression.MapFrom(row),
-			                                                     ScheduleColumns.NextNotification.MapFrom(row)));
+				new Schedule(ScheduleColumns.Name.MapFrom(row),
+					ScheduleColumns.InboxWorkQueueUri.MapFrom(row),
+					ScheduleColumns.CronExpression.MapFrom(row),
+					ScheduleColumns.NextNotification.MapFrom(row)));
 		}
 	}
 }

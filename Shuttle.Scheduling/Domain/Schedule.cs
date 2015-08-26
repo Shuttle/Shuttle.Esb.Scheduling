@@ -1,22 +1,29 @@
 using System;
-using Shuttle.Core.Domain;
 
 namespace Shuttle.Scheduling
 {
     public class Schedule 
     {
-        internal Schedule(string name, string inboxWOrkQueueUri, CronExpression cronExpression, DateTime nextNotification)
+	    internal Schedule(string name, string inboxWOrkQueueUri, string cronExpression)
+		    : this(name, inboxWOrkQueueUri, cronExpression, null)
+	    {
+	    }
+
+	    internal Schedule(string name, string inboxWOrkQueueUri, string cronExpression, DateTime? nextNotification)
         {
 	        Name = name;
 	        InboxWorkQueueUri = inboxWOrkQueueUri;
             CronExpression = cronExpression;
-            NextNotification = nextNotification;
+            _cronExpression = new CronExpression(cronExpression);
+			NextNotification = nextNotification ?? _cronExpression.NextOccurrence();
         }
 
 	    public string Name { get; private set; }
 	    public string InboxWorkQueueUri { get; private set; }
-        public CronExpression CronExpression { get; private set; }
+        public string CronExpression { get; private set; }
         public DateTime NextNotification { get; private set; }
+
+	    private readonly CronExpression _cronExpression;
 
         protected virtual bool ShouldSendNotification
         {
@@ -25,29 +32,27 @@ namespace Shuttle.Scheduling
 
         public void SetNextNotification()
         {
-            NextNotification = CronExpression.NextOccurrence();
+			NextNotification = _cronExpression.NextOccurrence();
         }
 
-        public void Apply(string queue, CronExpression expression)
-        {
-            InboxWorkQueueUri = queue;
-            CronExpression = expression;
-
-            SetNextNotification();
-        }
-
-        public void CheckNotification()
+        public RunScheduleCommand Notification()
         {
             if (!ShouldSendNotification)
             {
-                return;
+                return null;
             }
 
             var due = NextNotification;
 
             SetNextNotification();
 
-            DomainEvents.Raise(new SendNotification(this, due));
-        }
+			return new RunScheduleCommand
+			{
+				Name = Name,
+				DateDue = due,
+				DateSent = DateTime.Now,
+				ServerName = Environment.MachineName
+			};
+		}
     }
 }

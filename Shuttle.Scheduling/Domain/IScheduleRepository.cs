@@ -6,5 +6,7 @@ namespace Shuttle.Scheduling
 	{
 		IEnumerable<Schedule> All();
 		void SaveNextNotification(Schedule schedule);
+		void Save(Schedule schedule);
+		void Remove(string name);
 	}
 }

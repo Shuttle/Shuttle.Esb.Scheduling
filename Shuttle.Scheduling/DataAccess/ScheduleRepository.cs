@@ -28,7 +28,17 @@ namespace Shuttle.Scheduling
 
 		public void SaveNextNotification(Schedule schedule)
 		{
-			_databaseGateway.ExecuteUsing(SchedulerData.Source, _queryFactory.SaveNextNotification(schedule.Name, schedule.NextNotification));
+			_databaseGateway.ExecuteUsing(SchedulerData.Source, _queryFactory.SaveNextNotification(schedule));
+		}
+
+		public void Save(Schedule schedule)
+		{
+			_databaseGateway.ExecuteUsing(SchedulerData.Source, _queryFactory.Save(schedule));
+		}
+
+		public void Remove(string name)
+		{
+			_databaseGateway.ExecuteUsing(SchedulerData.Source, _queryFactory.Remove(name));
 		}
 	}
 }

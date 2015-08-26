@@ -30,31 +30,17 @@ order by
 		public IQuery Add(string name, string inboxWorkQueueUri, string cronExpression, DateTime nextNotification)
 		{
 			return RawQuery.Create(@"
-insert into [dbo].[Schedule]
-(
-	[Name],
-	[InboxWorkQueueUri],
-	[CronExpression],
-	[NextNotification]
-)
-values
-(
-	@Name,
-	@InboxWorkQueueUri,
-	@CronExpression,
-	@NextNotification
-)
 ")
-			               .AddParameterValue(ScheduleColumns.Name, name)
-			               .AddParameterValue(ScheduleColumns.InboxWorkQueueUri, inboxWorkQueueUri)
-			               .AddParameterValue(ScheduleColumns.CronExpression, cronExpression)
-			               .AddParameterValue(ScheduleColumns.NextNotification, nextNotification);
+						   .AddParameterValue(ScheduleColumns.Name, name)
+						   .AddParameterValue(ScheduleColumns.InboxWorkQueueUri, inboxWorkQueueUri)
+						   .AddParameterValue(ScheduleColumns.CronExpression, cronExpression)
+						   .AddParameterValue(ScheduleColumns.NextNotification, nextNotification);
 		}
 
 		public IQuery Remove(string name)
 		{
 			return RawQuery.Create(@"delete from [dbo].[Schedule] where [Name] = @Name")
-			               .AddParameterValue(ScheduleColumns.Name, name);
+						   .AddParameterValue(ScheduleColumns.Name, name);
 		}
 
 		public IQuery Contains(string name)
@@ -63,23 +49,39 @@ values
 						   .AddParameterValue(ScheduleColumns.Name, name);
 		}
 
-		public IQuery Save(string name, string inboxWorkQueueUri, string cronExpression, DateTime nextNotification)
+		public IQuery Save(Schedule schedule)
 		{
 			return RawQuery.Create(@"
-update [dbo].[Schedule] set
-	[InboxWorkQueueUri] = @InboxWorkQueueUri,
-	[CronExpression] = @CronExpression,
-	[NextNotification] = @NextNotification
-where
-	[Name] = @Name
+if not exists (select null from [dbo].[Schedule] where [Name] = @Name)
+	insert into [dbo].[Schedule]
+	(
+		[Name],
+		[InboxWorkQueueUri],
+		[CronExpression],
+		[NextNotification]
+	)
+	values
+	(
+		@Name,
+		@InboxWorkQueueUri,
+		@CronExpression,
+		@NextNotification
+	)
+else
+	update [dbo].[Schedule] set
+		[InboxWorkQueueUri] = @InboxWorkQueueUri,
+		[CronExpression] = @CronExpression,
+		[NextNotification] = @NextNotification
+	where
+		[Name] = @Name
 ")
-						   .AddParameterValue(ScheduleColumns.Name, name)
-						   .AddParameterValue(ScheduleColumns.InboxWorkQueueUri, inboxWorkQueueUri)
-						   .AddParameterValue(ScheduleColumns.CronExpression, cronExpression)
-						   .AddParameterValue(ScheduleColumns.NextNotification, nextNotification);
+						   .AddParameterValue(ScheduleColumns.Name, schedule.Name)
+						   .AddParameterValue(ScheduleColumns.InboxWorkQueueUri, schedule.InboxWorkQueueUri)
+						   .AddParameterValue(ScheduleColumns.CronExpression, schedule.CronExpression)
+						   .AddParameterValue(ScheduleColumns.NextNotification, schedule.NextNotification);
 		}
 
-		public IQuery SaveNextNotification(string name, DateTime nextNotification)
+		public IQuery SaveNextNotification(Schedule schedule)
 		{
 			return RawQuery.Create(@"
 update [dbo].[Schedule] set
@@ -87,8 +89,8 @@ update [dbo].[Schedule] set
 where
 	[Name] = @Name
 ")
-						   .AddParameterValue(ScheduleColumns.Name, name)
-						   .AddParameterValue(ScheduleColumns.NextNotification, nextNotification);
+						   .AddParameterValue(ScheduleColumns.Name, schedule.Name)
+						   .AddParameterValue(ScheduleColumns.NextNotification, schedule.NextNotification);
 		}
 	}
 }

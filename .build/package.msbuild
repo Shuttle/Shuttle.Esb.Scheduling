@@ -9,13 +9,45 @@
 	<Import Project="Shuttle.Core.MSBuild.targets" />
 
 	<ItemGroup>
-		<Framework Include="net35-full;net40-full;net45-full;net451-full" />
+		<Framework Include="net40-full;net45-full;net451-full" />
 		<ProjectReference Include="..\$(PackageAssembly)\$(PackageAssembly).csproj" />
+		<ProjectReference Include="..\$(PackageAssembly).Server\$(PackageAssembly).Server.csproj" />
+		<DatabaseScript Include="*.sql" />
 	</ItemGroup>
 
 	<Target Name="Build">
-		<MSBuild Projects="@(ProjectReference)" Targets="Rebuild" Properties="Configuration=Debug;Framework=%(Framework.Identity);OutputPath=$(MSBuildProjectDirectory)\deployment\debug\%(Framework.Identity)"/>
-		<MSBuild Projects="@(ProjectReference)" Targets="Rebuild" Properties="Configuration=Release;Framework=%(Framework.Identity);OutputPath=$(MSBuildProjectDirectory)\deployment\release\%(Framework.Identity)"/>
+		<MSBuild
+            Projects="$(MSBuildProjectFile)"
+            Targets="BuildConfiguration"
+			Properties="Configuration=Debug;Framework=%(Framework.Identity);OutputPath=$(MSBuildProjectDirectory)\deployment\debug\%(Framework.Identity)"
+        />
+
+		<MSBuild
+            Projects="$(MSBuildProjectFile)"
+            Targets="BuildConfiguration"
+			Properties="Configuration=Release;Framework=%(Framework.Identity);OutputPath=$(MSBuildProjectDirectory)\deployment\release\%(Framework.Identity)"
+        />
+	</Target>
+
+	<Target Name="BuildConfiguration">
+		<MSBuild Projects="@(ProjectReference)" Targets="Rebuild"/>
+
+		<ItemGroup>
+			<RemoveFiles Include="$(OutputPath)\*.xml;$(OutputPath)\*.config" />
+		</ItemGroup>
+
+		<Delete Files="@(RemoveFiles)" />
+		<Copy SourceFiles="@(DatabaseScript)" DestinationFolder="$(OutputPath)\database\" SkipUnchangedFiles="false" />
+		<Copy SourceFiles="app.config" DestinationFiles="$(OutputPath)\Shuttle.Scheduling.Server.exe.config" SkipUnchangedFiles="false" />
+
+		<ItemGroup>
+			<ZipFiles Include="$(OutputPath)\**\*.*" />
+		</ItemGroup>
+
+		<Zip
+			Files="@(ZipFiles)"
+			RelativeFolder="$(OutputPath)"
+			ZipFilePath="$(MSBuildProjectDirectory)\deployment\$(Configuration)\shuttle-scheduling-%(Framework.Identity).zip" />
 	</Target>
 
 	<Target Name="Deploy">

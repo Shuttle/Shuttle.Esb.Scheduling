@@ -4,6 +4,6 @@ namespace Shuttle.Scheduling
 {
 	public interface IScheduleQuery
 	{
-		bool HasScheduleStructures(DataSource source);
+		bool HasScheduleStructures();
 	}
 }

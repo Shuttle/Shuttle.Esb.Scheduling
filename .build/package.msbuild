@@ -19,13 +19,13 @@
 		<MSBuild
             Projects="$(MSBuildProjectFile)"
             Targets="BuildConfiguration"
-			Properties="Configuration=Debug;Framework=%(Framework.Identity);OutputPath=$(MSBuildProjectDirectory)\deployment\debug\%(Framework.Identity)"
+			Properties="Configuration=Debug;Platform=AnyCPU;Framework=%(Framework.Identity);OutputPath=$(MSBuildProjectDirectory)\deployment\debug\%(Framework.Identity)"
         />
 
 		<MSBuild
             Projects="$(MSBuildProjectFile)"
             Targets="BuildConfiguration"
-			Properties="Configuration=Release;Framework=%(Framework.Identity);OutputPath=$(MSBuildProjectDirectory)\deployment\release\%(Framework.Identity)"
+			Properties="Configuration=Release;Platform=AnyCPU;Framework=%(Framework.Identity);OutputPath=$(MSBuildProjectDirectory)\deployment\release\%(Framework.Identity)"
         />
 	</Target>
 
@@ -82,5 +82,7 @@
 
 		<Exec Command="$(NuGetExecutablePath) pack $(DeploymentFolder)\nuget\package.nuspec -OutputDirectory $(DeploymentFolder)\nuget -NoPackageAnalysis" />
 		<Exec Command="$(NuGetExecutablePath) push $(DeploymentFolder)\nuget\$(PackageName).$(SemanticVersion).nupkg" Condition="$(Operation) != 'pack-only'" />
+		<Exec Command="git commit -a -m &quot;- v$(SemanticVersion)&quot;" />
+		<Exec Command="git push" />
 	</Target>
 </Project>

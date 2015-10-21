@@ -1,8 +1,5 @@
 using System;
 using System.Threading;
-using Castle.Core;
-using Castle.MicroKernel;
-using Castle.MicroKernel.Context;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using log4net;
@@ -18,15 +15,15 @@ namespace Shuttle.Scheduling.Server
 	{
 		private readonly WindsorContainer _container = new WindsorContainer();
 
+		private readonly int _millisecondsBetweenScheduleChecks =
+			ConfigurationItem<int>.ReadSetting("MillisecondsBetweenScheduleChecks", 5000).GetValue();
+
 		private IServiceBus _bus;
+		private IDatabaseContextFactory _databaseContextFactory;
+		private IScheduleRepository _repository;
 
 		private volatile bool _running = true;
 		private Thread _thread;
-		private IDatabaseConnectionFactory _databaseConnectionFactory;
-		private IScheduleRepository _repository;
-
-		private readonly int millisecondsBetweenScheduleChecks =
-			ConfigurationItem<int>.ReadSetting("MillisecondsBetweenScheduleChecks", 5000).GetValue();
 
 		public void Dispose()
 		{
@@ -56,17 +53,11 @@ namespace Shuttle.Scheduling.Server
 
 			new ConnectionStringService().Approve();
 
-			_container.Register(Component.For<IDatabaseConnectionCache>()
-				.ImplementedBy<ThreadStaticDatabaseConnectionCache>());
-
-			_container.Register(Component.For<IDbConnectionConfiguration>()
-				.ImplementedBy<DbConnectionConfiguration>());
-
-			_container.Register(Component.For<IDbConnectionConfigurationProvider>()
-				.ImplementedBy<DbConnectionConfigurationProvider>());
+			_container.Register(Component.For<IDatabaseContextCache>()
+				.ImplementedBy<ThreadStaticDatabaseContextCache>());
 
 			_container.Register(Component.For<IDatabaseGateway>().ImplementedBy<DatabaseGateway>());
-			_container.Register(Component.For<IDatabaseConnectionFactory>().ImplementedBy<DatabaseConnectionFactory>());
+			_container.Register(Component.For<IDatabaseContextFactory>().ImplementedBy<DatabaseContextFactory>());
 			_container.Register(Component.For(typeof (IDataRepository<>)).ImplementedBy(typeof (DataRepository<>)));
 
 			_container.Register(
@@ -111,18 +102,23 @@ namespace Shuttle.Scheduling.Server
 			_container.Register(Component.For<IServiceBus>().Instance(_bus).LifestyleSingleton());
 
 			_repository = _container.Resolve<IScheduleRepository>();
-			_databaseConnectionFactory = _container.Resolve<IDatabaseConnectionFactory>();
+			_databaseContextFactory = _container.Resolve<IDatabaseContextFactory>();
 
 			_thread = new Thread(ProcessSchedule);
 
 			_thread.Start();
 		}
 
+		public bool Active
+		{
+			get { return _running; }
+		}
+
 		private void ProcessSchedule()
 		{
 			while (_running)
 			{
-				using (_databaseConnectionFactory.Create(SchedulerData.Source))
+				using (_databaseContextFactory.Create(SchedulingData.ConnectionStringName))
 				{
 					foreach (var schedule in _repository.All())
 					{
@@ -141,13 +137,8 @@ namespace Shuttle.Scheduling.Server
 					}
 				}
 
-				ThreadSleep.While(millisecondsBetweenScheduleChecks, this);
+				ThreadSleep.While(_millisecondsBetweenScheduleChecks, this);
 			}
-		}
-
-		public bool Active
-		{
-			get { return _running; }
 		}
 	}
 }

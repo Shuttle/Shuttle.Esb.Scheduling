@@ -17,9 +17,9 @@ namespace Shuttle.Scheduling
 			_queryFactory = queryFactory;
 		}
 
-		public bool HasScheduleStructures(DataSource source)
+		public bool HasScheduleStructures()
 		{
-			return _databaseGateway.GetScalarUsing<int>(source, _queryFactory.HasScheduleStructures()) == 1;
+			return _databaseGateway.GetScalarUsing<int>(_queryFactory.HasScheduleStructures()) == 1;
 		}
 	}
 }

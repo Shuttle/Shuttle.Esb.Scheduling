@@ -23,22 +23,22 @@ namespace Shuttle.Scheduling
 
 		public IEnumerable<Schedule> All()
 		{
-			return _dataRepository.FetchAllUsing(SchedulerData.Source, _queryFactory.All());
+			return _dataRepository.FetchAllUsing(_queryFactory.All());
 		}
 
 		public void SaveNextNotification(Schedule schedule)
 		{
-			_databaseGateway.ExecuteUsing(SchedulerData.Source, _queryFactory.SaveNextNotification(schedule));
+			_databaseGateway.ExecuteUsing(_queryFactory.SaveNextNotification(schedule));
 		}
 
 		public void Save(Schedule schedule)
 		{
-			_databaseGateway.ExecuteUsing(SchedulerData.Source, _queryFactory.Save(schedule));
+			_databaseGateway.ExecuteUsing(_queryFactory.Save(schedule));
 		}
 
 		public void Remove(string name)
 		{
-			_databaseGateway.ExecuteUsing(SchedulerData.Source, _queryFactory.Remove(name));
+			_databaseGateway.ExecuteUsing(_queryFactory.Remove(name));
 		}
 	}
 }

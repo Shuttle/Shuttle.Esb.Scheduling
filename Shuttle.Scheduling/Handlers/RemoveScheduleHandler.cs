@@ -18,7 +18,7 @@ namespace Shuttle.Scheduling
 			_scheduleRepository = scheduleRepository;
 		}
 
-		public void ProcessMessage(HandlerContext<RemoveScheduleCommand> context)
+		public void ProcessMessage(IHandlerContext<RemoveScheduleCommand> context)
 		{
 			var command = context.Message;
 

@@ -18,7 +18,7 @@ namespace Shuttle.Scheduling
 			_scheduleRepository = scheduleRepository;
 		}
 
-		public void ProcessMessage(HandlerContext<SaveScheduleCommand> context)
+		public void ProcessMessage(IHandlerContext<SaveScheduleCommand> context)
 		{
 			var command = context.Message;
 

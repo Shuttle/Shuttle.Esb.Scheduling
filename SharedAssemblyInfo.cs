@@ -13,10 +13,10 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Shuttle.ESB.Modules for .NET Framework 4.5.1")]
 #endif
 
-[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyVersion("2.1.1.0")]
 [assembly: AssemblyCopyright("Copyright © Eben Roux 2010-2015")]
 [assembly: AssemblyProduct("Shuttle.Scheduling")]
 [assembly: AssemblyCompany("Shuttle")]
 [assembly: AssemblyConfiguration("Release")]
-[assembly: AssemblyInformationalVersion("1.0.0")]
+[assembly: AssemblyInformationalVersion("2.1.1")]
 [assembly: ComVisible(false)]

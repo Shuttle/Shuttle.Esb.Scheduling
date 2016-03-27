@@ -1,20 +1,20 @@
-# shuttle-scheduling
-====================
+# Shuttle.Esb.Scheduling
+========================
 
 A simple scheduling solution built on Shuttle ESB.
 
 Download the latest release source code and then build from the command prompt:
 
-> .\shuttle-scheduling\.build\msbuild package.msbuild
+> .\Shuttle.Esb.Scheduling\.build\msbuild package.msbuild
 
-You will see the `deployment` folder under `shuttle-scheduling\.build` that will contain the binaries for the various configuration/framework versions.
+You will see the `deployment` folder under `Shuttle.Esb.Scheduling\.build` that will contain the binaries for the various configuration/framework versions.
 
 ## Simple Configuration
 --------------------
 1. Specify a name for your scheduled job, e.g. **ProcessAccountsCommand**
 2. Select the endpoint uri to send the **RunScheduleCommand** to when execution is required.
 3. Enter the [cron](http://en.wikipedia.org/wiki/Cron) expression to use.
-4. Ensure that the **Shuttle.Scheduling.Server** endpoint is running.
+4. Ensure that the **Shuttle.Esb.Scheduling.Server** endpoint is running.
  
 ### cron samples
 

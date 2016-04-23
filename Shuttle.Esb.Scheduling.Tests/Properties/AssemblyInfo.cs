@@ -25,7 +25,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Shuttle.Esb.Scheduling.Tests for .NET Framework 4.6.1")]
 #endif
 
-[assembly: AssemblyCopyright("Copyright © Eben Roux 2010-2015")]
+[assembly: AssemblyCopyright("Copyright © Eben Roux 2010-2016")]
 [assembly: AssemblyProduct("Shuttle.Esb.Scheduling.Tests")]
 [assembly: AssemblyCompany("Shuttle")]
 [assembly: ComVisible(false)]

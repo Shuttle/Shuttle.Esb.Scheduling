@@ -6,15 +6,18 @@ namespace Shuttle.Esb.Scheduling
 {
 	public class SaveScheduleHandler : IMessageHandler<SaveScheduleCommand>
 	{
-		private readonly IDatabaseContextFactory _databaseContextFactory;
+	    private readonly ISchedulingConfiguration _configuration;
+	    private readonly IDatabaseContextFactory _databaseContextFactory;
 		private readonly IScheduleRepository _scheduleRepository;
 
-		public SaveScheduleHandler(IDatabaseContextFactory databaseContextFactory, IScheduleRepository scheduleRepository)
+		public SaveScheduleHandler(ISchedulingConfiguration configuration, IDatabaseContextFactory databaseContextFactory, IScheduleRepository scheduleRepository)
 		{
+			Guard.AgainstNull(configuration, "configuration");
 			Guard.AgainstNull(databaseContextFactory, "databaseContextFactory");
 			Guard.AgainstNull(scheduleRepository, "scheduleRepository");
 
-			_databaseContextFactory = databaseContextFactory;
+		    _configuration = configuration;
+		    _databaseContextFactory = databaseContextFactory;
 			_scheduleRepository = scheduleRepository;
 		}
 
@@ -22,9 +25,9 @@ namespace Shuttle.Esb.Scheduling
 		{
 			var command = context.Message;
 
-			using (_databaseContextFactory.Create(SchedulingData.ConnectionStringName))
-			{
-				_scheduleRepository.Save(new Schedule(command.Name, command.InboxWorkQueueUri, command.CronExpression));
+            using (_databaseContextFactory.Create(_configuration.ProviderName, _configuration.ConnectionString))
+            {
+                _scheduleRepository.Save(new Schedule(command.Name, command.InboxWorkQueueUri, command.CronExpression));
 			}
 		}
 

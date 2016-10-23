@@ -67,6 +67,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
   </ItemGroup>
@@ -90,22 +91,24 @@
     <Compile Include="DataAccess\Queries\IScheduleQueryFactory.cs" />
     <Compile Include="DataAccess\Queries\ScheduleQuery.cs" />
     <Compile Include="DataAccess\Queries\ScheduleQueryFactory.cs" />
-    <Compile Include="DataAccess\SchedulingData.cs" />
     <Compile Include="Domain\EmptySchedule.cs" />
     <Compile Include="Domain\IScheduleRepository.cs" />
     <Compile Include="Domain\Schedule.cs" />
     <Compile Include="DataAccess\ScheduleRepository.cs" />
     <Compile Include="Handlers\RemoveScheduleHandler.cs" />
     <Compile Include="Handlers\SaveScheduleHandler.cs" />
+    <Compile Include="ISchedulingConfiguration.cs" />
     <Compile Include="Messages\RemoveScheduleCommand.cs" />
     <Compile Include="Messages\RunScheduleCommand.cs" />
     <Compile Include="Messages\SaveScheduleCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SchedulingConfiguration.cs" />
     <Compile Include="SchedulingResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SchedulingResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="SchedulingSection.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="SchedulingResources.resx">

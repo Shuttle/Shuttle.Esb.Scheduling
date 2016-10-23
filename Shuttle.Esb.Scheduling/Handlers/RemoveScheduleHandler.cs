@@ -6,15 +6,18 @@ namespace Shuttle.Esb.Scheduling
 {
 	public class RemoveScheduleHandler : IMessageHandler<RemoveScheduleCommand>
 	{
-		private readonly IDatabaseContextFactory _databaseContextFactory;
+	    private readonly ISchedulingConfiguration _configuration;
+	    private readonly IDatabaseContextFactory _databaseContextFactory;
 		private readonly IScheduleRepository _scheduleRepository;
 
-		public RemoveScheduleHandler(IDatabaseContextFactory databaseContextFactory, IScheduleRepository scheduleRepository)
+		public RemoveScheduleHandler(ISchedulingConfiguration configuration, IDatabaseContextFactory databaseContextFactory, IScheduleRepository scheduleRepository)
 		{
+			Guard.AgainstNull(configuration, "configuration");
 			Guard.AgainstNull(databaseContextFactory, "databaseContextFactory");
 			Guard.AgainstNull(scheduleRepository, "scheduleRepository");
 
-			_databaseContextFactory = databaseContextFactory;
+		    _configuration = configuration;
+		    _databaseContextFactory = databaseContextFactory;
 			_scheduleRepository = scheduleRepository;
 		}
 
@@ -22,7 +25,7 @@ namespace Shuttle.Esb.Scheduling
 		{
 			var command = context.Message;
 
-			using (_databaseContextFactory.Create(SchedulingData.ConnectionStringName))
+			using (_databaseContextFactory.Create(_configuration.ProviderName, _configuration.ConnectionString))
 			{
 				_scheduleRepository.Remove(command.Name);
 			}

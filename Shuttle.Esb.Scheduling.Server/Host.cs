@@ -15,10 +15,8 @@ namespace Shuttle.Esb.Scheduling.Server
 	{
 		private readonly WindsorContainer _container = new WindsorContainer();
 
-		private readonly int _millisecondsBetweenScheduleChecks =
-			ConfigurationItem<int>.ReadSetting("MillisecondsBetweenScheduleChecks", 5000).GetValue();
-
 		private IServiceBus _bus;
+		private ISchedulingConfiguration _configuration;
 		private IDatabaseContextFactory _databaseContextFactory;
 		private IScheduleRepository _repository;
 
@@ -100,8 +98,10 @@ namespace Shuttle.Esb.Scheduling.Server
 			_bus = ServiceBus.Create().Start();
 
 			_container.Register(Component.For<IServiceBus>().Instance(_bus).LifestyleSingleton());
+			_container.Register(Component.For<ISchedulingConfiguration>().ImplementedBy<SchedulingConfiguration>());
 
 			_repository = _container.Resolve<IScheduleRepository>();
+			_configuration = _container.Resolve<ISchedulingConfiguration>();
 			_databaseContextFactory = _container.Resolve<IDatabaseContextFactory>();
 
 			_thread = new Thread(ProcessSchedule);
@@ -118,9 +118,9 @@ namespace Shuttle.Esb.Scheduling.Server
 		{
 			while (_running)
 			{
-				using (_databaseContextFactory.Create(SchedulingData.ConnectionStringName))
-				{
-					foreach (var schedule in _repository.All())
+                using (_databaseContextFactory.Create(_configuration.ProviderName, _configuration.ConnectionString))
+                {
+                    foreach (var schedule in _repository.All())
 					{
 						var command = schedule.Notification();
 
@@ -137,7 +137,7 @@ namespace Shuttle.Esb.Scheduling.Server
 					}
 				}
 
-				ThreadSleep.While(_millisecondsBetweenScheduleChecks, this);
+				ThreadSleep.While(_configuration.MillisecondsBetweenScheduleChecks, this);
 			}
 		}
 	}

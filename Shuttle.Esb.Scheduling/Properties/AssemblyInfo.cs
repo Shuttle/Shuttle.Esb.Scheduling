@@ -25,10 +25,10 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Shuttle.Esb.Scheduling for .NET Framework 4.6.1")]
 #endif
 
-[assembly: AssemblyVersion("2.1.5.0")]
+[assembly: AssemblyVersion("2.1.6.0")]
 [assembly: AssemblyCopyright("Copyright © Eben Roux 2010-2015")]
 [assembly: AssemblyProduct("Shuttle.Esb.Scheduling")]
 [assembly: AssemblyCompany("Shuttle")]
 [assembly: AssemblyConfiguration("Release")]
-[assembly: AssemblyInformationalVersion("2.1.5")]
+[assembly: AssemblyInformationalVersion("2.1.6")]
 [assembly: ComVisible(false)]

@@ -1,7 +1,6 @@
 # Shuttle.Esb.Scheduling
-========================
 
-A simple scheduling solution built on Shuttle ESB.
+A simple scheduling solution built on Shuttle.Esb.
 
 Download the latest release source code and then build from the command prompt:
 

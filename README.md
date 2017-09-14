@@ -9,7 +9,7 @@ Download the latest release source code and then build from the command prompt:
 You will see the `deployment` folder under `Shuttle.Esb.Scheduling\.build` that will contain the binaries for the various configuration/framework versions.
 
 ## Simple Configuration
---------------------
+
 1. Specify a name for your scheduled job, e.g. **ProcessAccountsCommand**
 2. Select the endpoint uri to send the **RunScheduleCommand** to when execution is required.
 3. Enter the [cron](http://en.wikipedia.org/wiki/Cron) expression to use.

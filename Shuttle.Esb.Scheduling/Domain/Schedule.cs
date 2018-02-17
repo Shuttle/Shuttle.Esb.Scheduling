@@ -1,38 +1,37 @@
 using System;
+using Shuttle.Core.Cron;
+using Shuttle.Esb.Scheduling.Messages;
 
 namespace Shuttle.Esb.Scheduling
 {
-    public class Schedule 
+    public class Schedule
     {
-	    internal Schedule(string name, string inboxWOrkQueueUri, string cronExpression)
-		    : this(name, inboxWOrkQueueUri, cronExpression, null)
-	    {
-	    }
+        private readonly CronExpression _cronExpression;
 
-	    internal Schedule(string name, string inboxWOrkQueueUri, string cronExpression, DateTime? nextNotification)
+        public Schedule(string name, string inboxWOrkQueueUri, string cronExpression)
+            : this(name, inboxWOrkQueueUri, cronExpression, null)
         {
-	        Name = name;
-	        InboxWorkQueueUri = inboxWOrkQueueUri;
+        }
+
+        public Schedule(string name, string inboxWOrkQueueUri, string cronExpression, DateTime? nextNotification)
+        {
+            Name = name;
+            InboxWorkQueueUri = inboxWOrkQueueUri;
             CronExpression = cronExpression;
             _cronExpression = new CronExpression(cronExpression);
-			NextNotification = nextNotification ?? _cronExpression.NextOccurrence();
+            NextNotification = nextNotification ?? _cronExpression.NextOccurrence();
         }
 
-	    public string Name { get; private set; }
-	    public string InboxWorkQueueUri { get; private set; }
-        public string CronExpression { get; private set; }
+        public string Name { get; }
+        public string InboxWorkQueueUri { get; }
+        public string CronExpression { get; }
         public DateTime NextNotification { get; private set; }
 
-	    private readonly CronExpression _cronExpression;
-
-        protected virtual bool ShouldSendNotification
-        {
-            get { return DateTime.Now >= NextNotification; }
-        }
+        protected virtual bool ShouldSendNotification => DateTime.Now >= NextNotification;
 
         public void SetNextNotification()
         {
-			NextNotification = _cronExpression.NextOccurrence();
+            NextNotification = _cronExpression.NextOccurrence();
         }
 
         public RunScheduleCommand Notification()
@@ -46,13 +45,13 @@ namespace Shuttle.Esb.Scheduling
 
             SetNextNotification();
 
-			return new RunScheduleCommand
-			{
-				Name = Name,
-				DateDue = due,
-				DateSent = DateTime.Now,
-				ServerName = Environment.MachineName
-			};
-		}
+            return new RunScheduleCommand
+            {
+                Name = Name,
+                DateDue = due,
+                DateSent = DateTime.Now,
+                ServerName = Environment.MachineName
+            };
+        }
     }
 }

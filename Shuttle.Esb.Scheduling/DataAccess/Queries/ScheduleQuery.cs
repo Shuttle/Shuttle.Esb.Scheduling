@@ -1,5 +1,5 @@
+using Shuttle.Core.Contract;
 using Shuttle.Core.Data;
-using Shuttle.Core.Infrastructure;
 
 namespace Shuttle.Esb.Scheduling
 {
@@ -10,8 +10,8 @@ namespace Shuttle.Esb.Scheduling
 
 		public ScheduleQuery(IDatabaseGateway databaseGateway, IScheduleQueryFactory queryFactory)
 		{
-			Guard.AgainstNull(databaseGateway, "databaseGateway");
-			Guard.AgainstNull(queryFactory, "queryFactory");
+			Guard.AgainstNull(databaseGateway, nameof(databaseGateway));
+			Guard.AgainstNull(queryFactory, nameof(queryFactory));
 
 			_databaseGateway = databaseGateway;
 			_queryFactory = queryFactory;

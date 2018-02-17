@@ -31,7 +31,7 @@ using System.Runtime.InteropServices;
 
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyCopyright("Copyright © Eben Roux 2018")]
-[assembly: AssemblyProduct("Shuttle.Esb.Scheduling")]
+[assembly: AssemblyProduct("Shuttle.Esb.Scheduling.Messages")]
 [assembly: AssemblyCompany("Shuttle")]
 [assembly: AssemblyConfiguration("Release")]
 [assembly: AssemblyInformationalVersion("1.0.0")]

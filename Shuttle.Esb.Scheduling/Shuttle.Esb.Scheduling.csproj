@@ -10,6 +10,7 @@
         <None Include=".build\package.nuspec" />
         <None Include=".build\Shuttle.MSBuild.dll" />
         <None Include=".build\Shuttle.MSBuild.targets" />
+        <None Include=".scripts\Schedule.sql" />
     </ItemGroup>
 
     <ItemGroup>

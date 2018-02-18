@@ -15,7 +15,7 @@
 
     <ItemGroup>
       <PackageReference Include="Shuttle.Core.Castle" Version="10.0.4" />
-      <PackageReference Include="Shuttle.Core.Cron" Version="10.0.1" />
+      <PackageReference Include="Shuttle.Core.Cron" Version="10.0.2" />
       <PackageReference Include="Shuttle.Core.Data" Version="10.0.3" />
     </ItemGroup>
 

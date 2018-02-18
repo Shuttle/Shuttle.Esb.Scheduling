@@ -16,11 +16,7 @@
     <ItemGroup>
       <PackageReference Include="Shuttle.Core.Castle" Version="10.0.4" />
       <PackageReference Include="Shuttle.Core.Cron" Version="10.0.1" />
-      <PackageReference Include="Shuttle.Core.Data" Version="10.0.2" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\Shuttle.Esb.Scheduling.Messages\Shuttle.Esb.Scheduling.Messages.csproj" />
+      <PackageReference Include="Shuttle.Core.Data" Version="10.0.3" />
     </ItemGroup>
 
     <ItemGroup>

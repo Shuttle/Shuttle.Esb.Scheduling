@@ -40,7 +40,7 @@ order by
                 .AddParameterValue(ScheduleColumns.Name, name);
         }
 
-        public IQuery Save(Schedule schedule)
+        public IQuery Register(Schedule schedule)
         {
             return RawQuery.Create(@"
 if not exists (select null from [dbo].[Schedule] where [Name] = @Name)

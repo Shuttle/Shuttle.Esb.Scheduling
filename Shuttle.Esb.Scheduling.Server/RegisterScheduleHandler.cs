@@ -5,13 +5,13 @@ using Shuttle.Esb.Scheduling.Messages;
 
 namespace Shuttle.Esb.Scheduling
 {
-	public class SaveScheduleHandler : IMessageHandler<SaveScheduleCommand>
+	public class RegisterScheduleHandler : IMessageHandler<RegisterScheduleCommand>
 	{
 	    private readonly ISchedulingConfiguration _configuration;
 	    private readonly IDatabaseContextFactory _databaseContextFactory;
 		private readonly IScheduleRepository _scheduleRepository;
 
-		public SaveScheduleHandler(ISchedulingConfiguration configuration, IDatabaseContextFactory databaseContextFactory, IScheduleRepository scheduleRepository)
+		public RegisterScheduleHandler(ISchedulingConfiguration configuration, IDatabaseContextFactory databaseContextFactory, IScheduleRepository scheduleRepository)
 		{
 			Guard.AgainstNull(configuration, nameof(configuration));
 			Guard.AgainstNull(databaseContextFactory, nameof(databaseContextFactory));
@@ -22,13 +22,13 @@ namespace Shuttle.Esb.Scheduling
 			_scheduleRepository = scheduleRepository;
 		}
 
-		public void ProcessMessage(IHandlerContext<SaveScheduleCommand> context)
+		public void ProcessMessage(IHandlerContext<RegisterScheduleCommand> context)
 		{
 			var command = context.Message;
 
             using (_databaseContextFactory.Create(_configuration.ProviderName, _configuration.ConnectionString))
             {
-                _scheduleRepository.Save(new Schedule(command.Name, command.InboxWorkQueueUri, command.CronExpression));
+                _scheduleRepository.Register(new Schedule(command.Name, command.InboxWorkQueueUri, command.CronExpression));
 			}
 		}
 	}

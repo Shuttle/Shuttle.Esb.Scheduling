@@ -6,7 +6,7 @@ namespace Shuttle.Esb.Scheduling
 	{
 		IEnumerable<Schedule> All();
 		void SaveNextNotification(Schedule schedule);
-		void Save(Schedule schedule);
+		void Register(Schedule schedule);
 		void Remove(string name);
 	}
 }

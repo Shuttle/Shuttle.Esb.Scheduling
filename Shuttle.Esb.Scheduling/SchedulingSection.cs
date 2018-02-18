@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
 using Shuttle.Core.Configuration;
 
 namespace Shuttle.Esb.Scheduling
@@ -8,10 +9,10 @@ namespace Shuttle.Esb.Scheduling
         [ConfigurationProperty("connectionStringName", IsRequired = false, DefaultValue = "Scheduling")]
         public string ConnectionStringName => (string) this["connectionStringName"];
 
-        [ConfigurationProperty("millisecondsBetweenScheduleChecks", IsRequired = false, DefaultValue = 5000)]
-        public int MillisecondsBetweenScheduleChecks => (int) this["millisecondsBetweenScheduleChecks"];
+        [ConfigurationProperty("secondsBetweenScheduleChecks", IsRequired = false, DefaultValue = 15)]
+        public int SecondsBetweenScheduleChecks => (int) this["secondsBetweenScheduleChecks"];
 
-        public static SchedulingConfiguration Configuration()
+        public static ISchedulingConfiguration Configuration()
         {
             var section = ConfigurationSectionProvider.Open<SchedulingSection>("shuttle", "scheduling");
             var configuration = new SchedulingConfiguration();
@@ -21,16 +22,18 @@ namespace Shuttle.Esb.Scheduling
             if (section != null)
             {
                 connectionStringName = section.ConnectionStringName;
-                configuration.MillisecondsBetweenScheduleChecks = section.MillisecondsBetweenScheduleChecks;
+                configuration.SecondsBetweenScheduleChecks = section.SecondsBetweenScheduleChecks;
             }
 
             var settings = ConfigurationManager.ConnectionStrings[connectionStringName];
 
-            if (settings != null)
+            if (settings == null)
             {
-                configuration.ConnectionString = settings.ConnectionString;
-                configuration.ProviderName = settings.ProviderName;
+                throw new ApplicationException($"Could not find a connection string with name '{connectionStringName}'.");
             }
+
+            configuration.ConnectionString = settings.ConnectionString;
+            configuration.ProviderName = settings.ProviderName;
 
             return configuration;
         }

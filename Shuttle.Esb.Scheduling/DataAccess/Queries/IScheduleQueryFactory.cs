@@ -8,7 +8,7 @@ namespace Shuttle.Esb.Scheduling
 		IQuery HasScheduleStructures();
 		IQuery Remove(string name);
 		IQuery Contains(string name);
-		IQuery Save(Schedule schedule);
+		IQuery Register(Schedule schedule);
 		IQuery SaveNextNotification(Schedule schedule);
 	}
 }

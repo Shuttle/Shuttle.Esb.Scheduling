@@ -4,6 +4,6 @@
     {
         string ConnectionString { get; set; }
         string ProviderName { get; set; }
-        int MillisecondsBetweenScheduleChecks { get; set; }
+        int SecondsBetweenScheduleChecks { get; set; }
     }
 }

@@ -32,9 +32,9 @@ namespace Shuttle.Esb.Scheduling
             _databaseGateway.ExecuteUsing(_queryFactory.SaveNextNotification(schedule));
         }
 
-        public void Save(Schedule schedule)
+        public void Register(Schedule schedule)
         {
-            _databaseGateway.ExecuteUsing(_queryFactory.Save(schedule));
+            _databaseGateway.ExecuteUsing(_queryFactory.Register(schedule));
         }
 
         public void Remove(string name)

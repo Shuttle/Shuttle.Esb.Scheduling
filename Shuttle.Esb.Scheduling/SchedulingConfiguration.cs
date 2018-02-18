@@ -4,11 +4,11 @@
     {
         public SchedulingConfiguration()
         {
-            MillisecondsBetweenScheduleChecks = 5000;
+            SecondsBetweenScheduleChecks = 15;
         }
 
         public string ConnectionString { get; set; }
         public string ProviderName { get; set; }
-        public int MillisecondsBetweenScheduleChecks { get; set; }
+        public int SecondsBetweenScheduleChecks { get; set; }
     }
 }

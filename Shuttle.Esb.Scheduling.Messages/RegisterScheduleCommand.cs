@@ -1,6 +1,6 @@
 namespace Shuttle.Esb.Scheduling.Messages
 {
-	public class SaveScheduleCommand
+	public class RegisterScheduleCommand
 	{
 		public string Name { get; set; }
 		public string CronExpression { get; set; }

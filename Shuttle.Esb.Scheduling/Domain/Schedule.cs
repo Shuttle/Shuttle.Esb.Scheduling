@@ -1,6 +1,5 @@
 using System;
 using Shuttle.Core.Cron;
-using Shuttle.Esb.Scheduling.Messages;
 
 namespace Shuttle.Esb.Scheduling
 {
@@ -27,31 +26,11 @@ namespace Shuttle.Esb.Scheduling
         public string CronExpression { get; }
         public DateTime NextNotification { get; private set; }
 
-        protected virtual bool ShouldSendNotification => DateTime.Now >= NextNotification;
+        public bool ShouldSendNotification => DateTime.Now >= NextNotification;
 
         public void SetNextNotification()
         {
             NextNotification = _cronExpression.NextOccurrence();
-        }
-
-        public RunScheduleCommand Notification()
-        {
-            if (!ShouldSendNotification)
-            {
-                return null;
-            }
-
-            var due = NextNotification;
-
-            SetNextNotification();
-
-            return new RunScheduleCommand
-            {
-                Name = Name,
-                DateDue = due,
-                DateSent = DateTime.Now,
-                ServerName = Environment.MachineName
-            };
         }
     }
 }

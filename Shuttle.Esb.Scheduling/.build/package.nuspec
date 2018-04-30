@@ -9,7 +9,7 @@
 		<projectUrl>https://github.com/shuttle/Shuttle.Esb.Scheduling</projectUrl>
 		<iconUrl>https://raw.githubusercontent.com/Shuttle/Shuttle.Esb.Scheduling/master/.media/logo.png</iconUrl>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
-		<description></description>
+		<description>A simple scheduling solution built on Shuttle.Esb.</description>
 		<releaseNotes/>
 		<copyright>Copyright (c) {year}, Eben Roux</copyright>
 		<tags>shuttle</tags>

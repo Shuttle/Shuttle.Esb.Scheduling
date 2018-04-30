@@ -8,7 +8,9 @@ namespace Shuttle.Esb.Scheduling
 		public MappedRow<Schedule> Map(DataRow row)
 		{
 			return new MappedRow<Schedule>(row,
-				new Schedule(ScheduleColumns.Name.MapFrom(row),
+				new Schedule(
+				    ScheduleColumns.Id.MapFrom(row), 
+				    ScheduleColumns.Name.MapFrom(row),
 					ScheduleColumns.InboxWorkQueueUri.MapFrom(row),
 					ScheduleColumns.CronExpression.MapFrom(row),
 					ScheduleColumns.NextNotification.MapFrom(row)));

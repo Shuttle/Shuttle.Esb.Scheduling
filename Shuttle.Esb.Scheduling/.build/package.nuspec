@@ -13,5 +13,25 @@
 		<releaseNotes/>
 		<copyright>Copyright (c) {year}, Eben Roux</copyright>
 		<tags>shuttle</tags>
-	</metadata>
+    <dependencies>
+      <group>
+        <dependency id="Shuttle.Core.Cron" version="{Shuttle.Core.Cron-version}" />
+        <dependency id="Shuttle.Core.Data" version="{Shuttle.Core.Data-version}" />
+      </group>
+
+      <group targetFramework="netstandard2.0">
+        <dependency id="Shuttle.Core.Cron" version="{Shuttle.Core.Cron-version}" />
+        <dependency id="Shuttle.Core.Data" version="{Shuttle.Core.Data-version}" />
+        <dependency id="System.Configuration.ConfigurationManager"
+                    version="{System.Configuration.ConfigurationManager-version}" />
+      </group>
+
+      <group targetFramework="netcoreapp2.0">
+        <dependency id="Shuttle.Core.Cron" version="{Shuttle.Core.Cron-version}" />
+        <dependency id="Shuttle.Core.Data" version="{Shuttle.Core.Data-version}" />
+        <dependency id="System.Configuration.ConfigurationManager"
+                    version="{System.Configuration.ConfigurationManager-version}" />
+      </group>
+    </dependencies>
+  </metadata>
 </package>

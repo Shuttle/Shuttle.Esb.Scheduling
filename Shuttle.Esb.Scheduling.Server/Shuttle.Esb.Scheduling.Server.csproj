@@ -12,11 +12,11 @@
 
   <ItemGroup>
     <PackageReference Include="Shuttle.Core.Castle" Version="10.0.4" />
-    <PackageReference Include="Shuttle.Core.Data" Version="10.0.3" />
+    <PackageReference Include="Shuttle.Core.Data" Version="10.0.4" />
     <PackageReference Include="Shuttle.Core.Log4Net" Version="10.0.0" />
     <PackageReference Include="Shuttle.Core.ServiceHost" Version="10.0.0" />
-    <PackageReference Include="Shuttle.Esb" Version="10.0.3" />
-    <PackageReference Include="Shuttle.Esb.RabbitMQ" Version="10.0.3" />
+    <PackageReference Include="Shuttle.Esb" Version="10.0.7" />
+    <PackageReference Include="Shuttle.Esb.RabbitMQ" Version="10.0.5" />
     <PackageReference Include="System.Net.NameResolution" Version="4.3.0" />
   </ItemGroup>
 

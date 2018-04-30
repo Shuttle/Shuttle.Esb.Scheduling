@@ -1,4 +1,5 @@
-﻿using Shuttle.Core.Data;
+﻿using System;
+using Shuttle.Core.Data;
 
 namespace Shuttle.Esb.Scheduling
 {
@@ -6,9 +7,9 @@ namespace Shuttle.Esb.Scheduling
 	{
 		IQuery All();
 		IQuery HasScheduleStructures();
-		IQuery Remove(string name);
-		IQuery Contains(string name);
-		IQuery Register(Schedule schedule);
+		IQuery Remove(Guid id);
+		IQuery Contains(string name, string inboxWorkQueueUri, string cronExpression);
+		IQuery Save(Schedule schedule);
 		IQuery SaveNextNotification(Schedule schedule);
 	}
 }

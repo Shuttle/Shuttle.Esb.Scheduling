@@ -24,11 +24,11 @@ namespace Shuttle.Esb.Scheduling
 
 		public void ProcessMessage(IHandlerContext<RemoveScheduleCommand> context)
 		{
-			var command = context.Message;
+			var message = context.Message;
 
 			using (_databaseContextFactory.Create(_configuration.ProviderName, _configuration.ConnectionString))
 			{
-				_scheduleRepository.Remove(command.Name);
+				_scheduleRepository.Remove(message.Id);
 			}
 		}
 	}

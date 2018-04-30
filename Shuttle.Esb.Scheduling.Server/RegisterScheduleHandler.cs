@@ -1,4 +1,5 @@
-﻿using Shuttle.Core.Contract;
+﻿using System;
+using Shuttle.Core.Contract;
 using Shuttle.Core.Data;
 using Shuttle.Esb;
 using Shuttle.Esb.Scheduling.Messages;
@@ -24,11 +25,11 @@ namespace Shuttle.Esb.Scheduling
 
 		public void ProcessMessage(IHandlerContext<RegisterScheduleCommand> context)
 		{
-			var command = context.Message;
+			var message = context.Message;
 
             using (_databaseContextFactory.Create(_configuration.ProviderName, _configuration.ConnectionString))
             {
-                _scheduleRepository.Register(new Schedule(command.Name, command.InboxWorkQueueUri, command.CronExpression));
+                _scheduleRepository.Register(new Schedule(Guid.NewGuid(), message.Name, message.InboxWorkQueueUri, message.CronExpression, null));
 			}
 		}
 	}

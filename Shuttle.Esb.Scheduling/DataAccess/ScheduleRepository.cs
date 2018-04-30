@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Shuttle.Core.Contract;
 using Shuttle.Core.Data;
@@ -34,12 +35,12 @@ namespace Shuttle.Esb.Scheduling
 
         public void Register(Schedule schedule)
         {
-            _databaseGateway.ExecuteUsing(_queryFactory.Register(schedule));
+            _databaseGateway.ExecuteUsing(_queryFactory.Save(schedule));
         }
 
-        public void Remove(string name)
+        public void Remove(Guid id)
         {
-            _databaseGateway.ExecuteUsing(_queryFactory.Remove(name));
+            _databaseGateway.ExecuteUsing(_queryFactory.Remove(id));
         }
     }
 }

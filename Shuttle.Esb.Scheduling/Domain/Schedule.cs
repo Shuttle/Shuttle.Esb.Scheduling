@@ -1,4 +1,5 @@
 using System;
+using Shuttle.Core.Contract;
 using Shuttle.Core.Cron;
 
 namespace Shuttle.Esb.Scheduling
@@ -7,19 +8,22 @@ namespace Shuttle.Esb.Scheduling
     {
         private readonly CronExpression _cronExpression;
 
-        public Schedule(string name, string inboxWOrkQueueUri, string cronExpression)
-            : this(name, inboxWOrkQueueUri, cronExpression, null)
+        public Schedule(Guid id, string name, string inboxWorkQueueUri, string cronExpression,
+            DateTime? nextNotification)
         {
-        }
+            Guard.AgainstNullOrEmptyString(name, nameof(name));
+            Guard.AgainstNullOrEmptyString(inboxWorkQueueUri, nameof(inboxWorkQueueUri));
+            Guard.AgainstNullOrEmptyString(cronExpression, nameof(cronExpression));
 
-        public Schedule(string name, string inboxWOrkQueueUri, string cronExpression, DateTime? nextNotification)
-        {
+            Id = id;
             Name = name;
-            InboxWorkQueueUri = inboxWOrkQueueUri;
+            InboxWorkQueueUri = inboxWorkQueueUri;
             CronExpression = cronExpression;
             _cronExpression = new CronExpression(cronExpression);
             NextNotification = nextNotification ?? _cronExpression.NextOccurrence();
         }
+
+        public Guid Id { get; }
 
         public string Name { get; }
         public string InboxWorkQueueUri { get; }

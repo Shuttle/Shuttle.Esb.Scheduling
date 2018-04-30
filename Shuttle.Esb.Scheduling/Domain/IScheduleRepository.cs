@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace Shuttle.Esb.Scheduling
@@ -7,6 +8,6 @@ namespace Shuttle.Esb.Scheduling
 		IEnumerable<Schedule> All();
 		void SaveNextNotification(Schedule schedule);
 		void Register(Schedule schedule);
-		void Remove(string name);
+		void Remove(Guid id);
 	}
 }

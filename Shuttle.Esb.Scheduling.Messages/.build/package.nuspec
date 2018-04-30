@@ -9,9 +9,9 @@
 		<projectUrl>https://github.com/shuttle/Shuttle.Esb.Scheduling.Messages</projectUrl>
 		<iconUrl>https://raw.githubusercontent.com/Shuttle/Shuttle.Esb.Scheduling.Messages/master/.media/logo.png</iconUrl>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
-		<description></description>
+		<description>Messages for use with Shuttle.Scheduling components.</description>
 		<releaseNotes/>
 		<copyright>Copyright (c) {year}, Eben Roux</copyright>
-		<tags>shuttle</tags>
+		<tags>shuttle shuttle.scheduling</tags>
 	</metadata>
 </package>

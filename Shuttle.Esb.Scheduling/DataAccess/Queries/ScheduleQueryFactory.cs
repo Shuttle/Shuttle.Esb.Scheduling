@@ -17,7 +17,8 @@ select
 from
 	[dbo].[Schedule]
 order by
-	[Name]
+	[Name],
+    [InboxWorkQueueUri]
 ");
         }
 
@@ -108,6 +109,28 @@ where
 ")
                 .AddParameterValue(ScheduleColumns.Id, schedule.Id)
                 .AddParameterValue(ScheduleColumns.NextNotification, schedule.NextNotification);
+        }
+
+        public IQuery Search(string match)
+        {
+            return RawQuery.Create(@"
+select
+    [Id],
+	[Name],
+	[InboxWorkQueueUri],
+	[CronExpression],
+	[NextNotification]
+from
+	[dbo].[Schedule]
+where
+    [Name] like @Match
+or
+    [InboxWorkQueueUri] like @Match
+order by
+	[Name],
+    [InboxWorkQueueUri]
+")
+                .AddParameterValue(ScheduleColumns.Match, string.Concat("%", match, "%"));
         }
     }
 }

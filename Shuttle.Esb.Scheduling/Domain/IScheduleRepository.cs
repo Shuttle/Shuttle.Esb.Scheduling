@@ -7,7 +7,8 @@ namespace Shuttle.Esb.Scheduling
 	{
 		IEnumerable<Schedule> All();
 		void SaveNextNotification(Schedule schedule);
-		void Register(Schedule schedule);
+		void Save(Schedule schedule);
 		void Remove(Guid id);
+	    bool Contains(string name, string inboxWorkQueueUri, string cronExpression);
 	}
 }

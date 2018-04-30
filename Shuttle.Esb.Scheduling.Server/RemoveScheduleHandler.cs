@@ -1,6 +1,5 @@
 ﻿using Shuttle.Core.Contract;
 using Shuttle.Core.Data;
-using Shuttle.Esb;
 using Shuttle.Esb.Scheduling.Messages;
 
 namespace Shuttle.Esb.Scheduling

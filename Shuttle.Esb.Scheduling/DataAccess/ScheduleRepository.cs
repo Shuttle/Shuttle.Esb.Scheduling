@@ -33,7 +33,7 @@ namespace Shuttle.Esb.Scheduling
             _databaseGateway.ExecuteUsing(_queryFactory.SaveNextNotification(schedule));
         }
 
-        public void Register(Schedule schedule)
+        public void Save(Schedule schedule)
         {
             _databaseGateway.ExecuteUsing(_queryFactory.Save(schedule));
         }
@@ -41,6 +41,12 @@ namespace Shuttle.Esb.Scheduling
         public void Remove(Guid id)
         {
             _databaseGateway.ExecuteUsing(_queryFactory.Remove(id));
+        }
+
+        public bool Contains(string name, string inboxWorkQueueUri, string cronExpression)
+        {
+            return _databaseGateway.GetScalarUsing<int>(_queryFactory.Contains(name, inboxWorkQueueUri,
+                       cronExpression)) == 1;
         }
     }
 }

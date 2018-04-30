@@ -1,18 +1,17 @@
 ﻿using System;
 using Shuttle.Core.Contract;
 using Shuttle.Core.Data;
-using Shuttle.Esb;
 using Shuttle.Esb.Scheduling.Messages;
 
 namespace Shuttle.Esb.Scheduling
 {
-	public class RegisterScheduleHandler : IMessageHandler<RegisterScheduleCommand>
+	public class SaveScheduleHandler : IMessageHandler<SaveScheduleCommand>
 	{
 	    private readonly ISchedulingConfiguration _configuration;
 	    private readonly IDatabaseContextFactory _databaseContextFactory;
 		private readonly IScheduleRepository _scheduleRepository;
 
-		public RegisterScheduleHandler(ISchedulingConfiguration configuration, IDatabaseContextFactory databaseContextFactory, IScheduleRepository scheduleRepository)
+		public SaveScheduleHandler(ISchedulingConfiguration configuration, IDatabaseContextFactory databaseContextFactory, IScheduleRepository scheduleRepository)
 		{
 			Guard.AgainstNull(configuration, nameof(configuration));
 			Guard.AgainstNull(databaseContextFactory, nameof(databaseContextFactory));
@@ -23,13 +22,13 @@ namespace Shuttle.Esb.Scheduling
 			_scheduleRepository = scheduleRepository;
 		}
 
-		public void ProcessMessage(IHandlerContext<RegisterScheduleCommand> context)
+		public void ProcessMessage(IHandlerContext<SaveScheduleCommand> context)
 		{
 			var message = context.Message;
 
             using (_databaseContextFactory.Create(_configuration.ProviderName, _configuration.ConnectionString))
             {
-                _scheduleRepository.Register(new Schedule(Guid.NewGuid(), message.Name, message.InboxWorkQueueUri, message.CronExpression, null));
+                _scheduleRepository.Save(new Schedule(Guid.NewGuid(), message.Name, message.InboxWorkQueueUri, message.CronExpression, null));
 			}
 		}
 	}

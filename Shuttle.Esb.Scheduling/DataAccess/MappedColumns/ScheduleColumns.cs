@@ -11,5 +11,6 @@ namespace Shuttle.Esb.Scheduling
 		public static readonly MappedColumn<string> InboxWorkQueueUri = new MappedColumn<string>("InboxWorkQueueUri", DbType.AnsiString);
 		public static readonly MappedColumn<string> CronExpression = new MappedColumn<string>("CronExpression", DbType.AnsiString);
 		public static readonly MappedColumn<DateTime> NextNotification = new MappedColumn<DateTime>("NextNotification", DbType.DateTime);
+	    public static readonly MappedColumn<string> Match = new MappedColumn<string>("Match", DbType.AnsiString);
 	}
 }

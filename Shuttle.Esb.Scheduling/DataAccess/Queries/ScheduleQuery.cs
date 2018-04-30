@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Shuttle.Core.Contract;
 using Shuttle.Core.Data;
 
@@ -6,20 +7,28 @@ namespace Shuttle.Esb.Scheduling
 	public class ScheduleQuery : IScheduleQuery
 	{
 		private readonly IDatabaseGateway _databaseGateway;
-		private readonly IScheduleQueryFactory _queryFactory;
+	    private readonly IQueryMapper _queryMapper;
+	    private readonly IScheduleQueryFactory _queryFactory;
 
-		public ScheduleQuery(IDatabaseGateway databaseGateway, IScheduleQueryFactory queryFactory)
+		public ScheduleQuery(IDatabaseGateway databaseGateway, IQueryMapper queryMapper, IScheduleQueryFactory queryFactory)
 		{
 			Guard.AgainstNull(databaseGateway, nameof(databaseGateway));
+			Guard.AgainstNull(queryMapper, nameof(queryMapper));
 			Guard.AgainstNull(queryFactory, nameof(queryFactory));
 
 			_databaseGateway = databaseGateway;
-			_queryFactory = queryFactory;
+		    _queryMapper = queryMapper;
+		    _queryFactory = queryFactory;
 		}
 
 		public bool HasScheduleStructures()
 		{
 			return _databaseGateway.GetScalarUsing<int>(_queryFactory.HasScheduleStructures()) == 1;
 		}
+
+	    public IEnumerable<Query.Schedule> Search(string match)
+	    {
+	        return _queryMapper.MapObjects<Query.Schedule>(_queryFactory.Search(match));
+	    }
 	}
 }

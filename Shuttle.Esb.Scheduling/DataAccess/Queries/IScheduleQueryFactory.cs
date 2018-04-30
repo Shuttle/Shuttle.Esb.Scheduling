@@ -11,5 +11,6 @@ namespace Shuttle.Esb.Scheduling
 		IQuery Contains(string name, string inboxWorkQueueUri, string cronExpression);
 		IQuery Save(Schedule schedule);
 		IQuery SaveNextNotification(Schedule schedule);
+	    IQuery Search(string match);
 	}
 }

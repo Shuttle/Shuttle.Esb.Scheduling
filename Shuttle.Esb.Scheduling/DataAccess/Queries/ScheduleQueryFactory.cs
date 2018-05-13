@@ -56,7 +56,9 @@ if exists
 else 
     select 0
 ")
-                .AddParameterValue(ScheduleColumns.Name, name);
+                .AddParameterValue(ScheduleColumns.Name, name)
+                .AddParameterValue(ScheduleColumns.InboxWorkQueueUri, inboxWorkQueueUri)
+                .AddParameterValue(ScheduleColumns.CronExpression, cronExpression);
         }
 
         public IQuery Save(Schedule schedule)

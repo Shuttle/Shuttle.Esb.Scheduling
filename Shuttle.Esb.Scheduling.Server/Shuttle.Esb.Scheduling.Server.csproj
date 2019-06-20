@@ -2,33 +2,28 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFrameworks>netcoreapp2.0;net46</TargetFrameworks>
+    <TargetFrameworks>netcoreapp2.1;net461</TargetFrameworks>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netcoreapp2.0|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netcoreapp2.1|AnyCPU'">
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <WarningsAsErrors>NU1605</WarningsAsErrors>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Shuttle.Core.Castle" Version="10.0.4" />
-    <PackageReference Include="Shuttle.Core.Data" Version="10.0.4" />
-    <PackageReference Include="Shuttle.Core.Log4Net" Version="10.0.0" />
-    <PackageReference Include="Shuttle.Core.ServiceHost" Version="10.0.0" />
-    <PackageReference Include="Shuttle.Esb" Version="10.0.7" />
-    <PackageReference Include="Shuttle.Esb.RabbitMQ" Version="10.0.5" />
+    <PackageReference Include="Shuttle.Core.Castle" Version="10.0.5" />
+    <PackageReference Include="Shuttle.Core.Data" Version="11.0.1" />
+    <PackageReference Include="Shuttle.Core.Log4Net" Version="10.0.1" />
+    <PackageReference Include="Shuttle.Core.ServiceHost" Version="10.0.4" />
+    <PackageReference Include="Shuttle.Esb" Version="11.0.0" />
+    <PackageReference Include="Shuttle.Esb.RabbitMQ" Version="11.0.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.6.1" Condition="'$(TargetFramework)' == 'netstandard2.0' or '$(TargetFramework)' == 'netcoreapp2.1'" />
     <PackageReference Include="System.Net.NameResolution" Version="4.3.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Shuttle.Esb.Scheduling.Messages\Shuttle.Esb.Scheduling.Messages.csproj" />
     <ProjectReference Include="..\Shuttle.Esb.Scheduling\Shuttle.Esb.Scheduling.csproj" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp2.0'">
-    <PackageReference Include="Shuttle.Core.Data.SqlClient">
-      <Version>10.0.4</Version>
-    </PackageReference>
   </ItemGroup>
 
 </Project>

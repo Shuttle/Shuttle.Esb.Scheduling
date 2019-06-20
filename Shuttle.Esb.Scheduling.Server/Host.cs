@@ -13,7 +13,7 @@ using Shuttle.Esb.Scheduling.Messages;
 
 namespace Shuttle.Esb.Scheduling.Server
 {
-    public class Host : IServiceHost, IThreadState
+    public class Host : IServiceHost
     {
         private readonly WindsorContainer _container = new WindsorContainer();
         private IServiceBus _bus;
@@ -21,7 +21,8 @@ namespace Shuttle.Esb.Scheduling.Server
         private IDatabaseContextFactory _databaseContextFactory;
         private IScheduleRepository _repository;
 
-        private volatile bool _running = true;
+        private readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
+        private CancellationToken _cancellationToken;
         private Thread _thread;
 
         public Host()
@@ -43,6 +44,7 @@ namespace Shuttle.Esb.Scheduling.Server
             _repository = _container.Resolve<IScheduleRepository>();
             _configuration = _container.Resolve<ISchedulingConfiguration>();
             _databaseContextFactory = _container.Resolve<IDatabaseContextFactory>();
+            _cancellationToken = _cancellationTokenSource.Token;
 
             _thread = new Thread(ProcessSchedule);
 
@@ -51,7 +53,7 @@ namespace Shuttle.Esb.Scheduling.Server
 
         public void Stop()
         {
-            _running = false;
+            _cancellationTokenSource.Cancel();
 
             _bus?.Dispose();
 
@@ -65,13 +67,11 @@ namespace Shuttle.Esb.Scheduling.Server
             LogManager.Shutdown();
         }
 
-        public bool Active => _running;
-
         private void ProcessSchedule()
         {
             var ms = _configuration.SecondsBetweenScheduleChecks * 1000;
 
-            while (_running)
+            while (!_cancellationToken.IsCancellationRequested)
             {
                 using (_databaseContextFactory.Create(_configuration.ProviderName, _configuration.ConnectionString))
                 {
@@ -96,7 +96,7 @@ namespace Shuttle.Esb.Scheduling.Server
                     }
                 }
 
-                ThreadSleep.While(ms, this);
+                ThreadSleep.While(ms, _cancellationToken);
             }
         }
     }

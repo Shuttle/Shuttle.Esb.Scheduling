@@ -12,7 +12,7 @@
 		<description>A simple scheduling solution built on Shuttle.Esb.</description>
 		<releaseNotes/>
 		<copyright>Copyright (c) {year}, Eben Roux</copyright>
-		<tags>shuttle</tags>
+		<tags>shuttle scheduling cron</tags>
     <dependencies>
       <group>
         <dependency id="Shuttle.Core.Cron" version="{Shuttle.Core.Cron-version}" />

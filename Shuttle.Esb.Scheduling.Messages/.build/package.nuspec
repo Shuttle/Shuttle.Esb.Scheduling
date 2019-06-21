@@ -6,12 +6,12 @@
 		<authors>Eben Roux</authors>
 		<owners>Eben Roux</owners>
 		<license type="expression">BSD-3-Clause</license>
-		<projectUrl>https://github.com/shuttle/Shuttle.Esb.Scheduling.Messages</projectUrl>
-		<iconUrl>https://raw.githubusercontent.com/Shuttle/Shuttle.Esb.Scheduling.Messages/master/.media/logo.png</iconUrl>
+    <projectUrl>https://github.com/shuttle/Shuttle.Esb.Scheduling</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/Shuttle/Shuttle.Esb.Scheduling/master/.media/logo.png</iconUrl>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<description>Messages for use with Shuttle.Scheduling components.</description>
 		<releaseNotes/>
 		<copyright>Copyright (c) {year}, Eben Roux</copyright>
-		<tags>shuttle shuttle.scheduling</tags>
+		<tags>shuttle scheduling cron</tags>
 	</metadata>
 </package>

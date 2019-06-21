@@ -13,10 +13,10 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle(".NET Standard 2.1")]
 #endif
 
-[assembly: AssemblyVersion("10.0.0.0")]
+[assembly: AssemblyVersion("11.0.0.0")]
 [assembly: AssemblyCopyright("Copyright © Eben Roux 2019")]
 [assembly: AssemblyProduct("Shuttle.Esb.Scheduling")]
 [assembly: AssemblyCompany("Shuttle")]
 [assembly: AssemblyConfiguration("Release")]
-[assembly: AssemblyInformationalVersion("10.0.0")]
+[assembly: AssemblyInformationalVersion("11.0.0")]
 [assembly: ComVisible(false)]

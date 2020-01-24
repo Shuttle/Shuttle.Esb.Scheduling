@@ -1,37 +1,37 @@
 <?xml version="1.0"?>
-<package >
-	<metadata>
-		<id>Shuttle.Esb.Scheduling</id>
-		<version>{semver}</version>
-		<authors>Eben Roux</authors>
-		<owners>Eben Roux</owners>
-		<license type="expression">BSD-3-Clause</license>
-		<projectUrl>https://github.com/shuttle/Shuttle.Esb.Scheduling</projectUrl>
-		<iconUrl>https://raw.githubusercontent.com/Shuttle/Shuttle.Esb.Scheduling/master/.media/logo.png</iconUrl>
-		<requireLicenseAcceptance>false</requireLicenseAcceptance>
-		<description>A simple scheduling solution built on Shuttle.Esb.</description>
-		<releaseNotes/>
-		<copyright>Copyright (c) {year}, Eben Roux</copyright>
-		<tags>shuttle scheduling cron</tags>
+<package>
+  <metadata>
+    <id>Shuttle.Esb.Scheduling</id>
+    <version>{semver}</version>
+    <authors>Eben Roux</authors>
+    <owners>Eben Roux</owners>
+    <license type="expression">BSD-3-Clause</license>
+    <projectUrl>https://github.com/shuttle/Shuttle.Esb.Scheduling</projectUrl>
+    <icon>images\logo.png</icon>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A simple scheduling solution built on Shuttle.Esb.</description>
+    <releaseNotes />
+    <copyright>Copyright (c) {year}, Eben Roux</copyright>
+    <tags>shuttle scheduling cron</tags>
     <dependencies>
       <group>
         <dependency id="Shuttle.Core.Cron" version="{Shuttle.Core.Cron-version}" />
         <dependency id="Shuttle.Core.Data" version="{Shuttle.Core.Data-version}" />
       </group>
-
       <group targetFramework="netstandard2.0">
         <dependency id="Shuttle.Core.Cron" version="{Shuttle.Core.Cron-version}" />
         <dependency id="Shuttle.Core.Data" version="{Shuttle.Core.Data-version}" />
-        <dependency id="System.Configuration.ConfigurationManager"
-                    version="{System.Configuration.ConfigurationManager-version}" />
+        <dependency id="System.Configuration.ConfigurationManager" version="{System.Configuration.ConfigurationManager-version}" />
       </group>
-
       <group targetFramework="netcoreapp2.1">
         <dependency id="Shuttle.Core.Cron" version="{Shuttle.Core.Cron-version}" />
         <dependency id="Shuttle.Core.Data" version="{Shuttle.Core.Data-version}" />
-        <dependency id="System.Configuration.ConfigurationManager"
-                    version="{System.Configuration.ConfigurationManager-version}" />
+        <dependency id="System.Configuration.ConfigurationManager" version="{System.Configuration.ConfigurationManager-version}" />
       </group>
     </dependencies>
   </metadata>
+  <files>
+    <file src="..\..\..\..\.media\logo.png" target="images\" />
+	<file src="lib\**\*.*" target="lib" />
+  </files>
 </package>

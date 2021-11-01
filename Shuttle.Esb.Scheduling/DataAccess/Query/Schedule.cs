@@ -9,5 +9,17 @@ namespace Shuttle.Esb.Scheduling.Query
         public string InboxWorkQueueUri { get; set; }
         public string CronExpression { get; set; }
         public DateTime NextNotification { get; set; }
+
+        public class Specification
+        {
+            public string FuzzyMatch { get; private set; }
+
+            public Specification MatchingFuzzy(string fuzzyMatch)
+            {
+                FuzzyMatch = fuzzyMatch;
+
+                return this;
+            }
+        }
     }
 }

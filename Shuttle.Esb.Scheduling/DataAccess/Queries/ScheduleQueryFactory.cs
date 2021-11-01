@@ -113,7 +113,7 @@ where
                 .AddParameterValue(ScheduleColumns.NextNotification, schedule.NextNotification);
         }
 
-        public IQuery Search(string match)
+        public IQuery Search(Query.Schedule.Specification specification)
         {
             return RawQuery.Create(@"
 select
@@ -128,11 +128,13 @@ where
     [Name] like @Match
 or
     [InboxWorkQueueUri] like @Match
+or
+    [CronExpression] like @Match
 order by
 	[Name],
     [InboxWorkQueueUri]
 ")
-                .AddParameterValue(ScheduleColumns.Match, string.Concat("%", match, "%"));
+                .AddParameterValue(ScheduleColumns.Match, string.IsNullOrWhiteSpace(specification.FuzzyMatch) ? null : $"%{specification.FuzzyMatch}%");
         }
     }
 }

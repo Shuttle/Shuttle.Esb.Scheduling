@@ -26,9 +26,9 @@ namespace Shuttle.Esb.Scheduling
 			return _databaseGateway.GetScalarUsing<int>(_queryFactory.HasScheduleStructures()) == 1;
 		}
 
-	    public IEnumerable<Query.Schedule> Search(string match)
-	    {
-	        return _queryMapper.MapObjects<Query.Schedule>(_queryFactory.Search(match));
-	    }
+		public IEnumerable<Query.Schedule> Search(Query.Schedule.Specification specification)
+		{
+			return _queryMapper.MapObjects<Query.Schedule>(_queryFactory.Search(specification));
+		}
 	}
 }

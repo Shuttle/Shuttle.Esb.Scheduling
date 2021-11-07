@@ -125,11 +125,15 @@ select
 from
 	[dbo].[Schedule]
 where
-    [Name] like @Match
+    @Match is null
 or
-    [InboxWorkQueueUri] like @Match
-or
-    [CronExpression] like @Match
+    (
+        [Name] like @Match
+    or
+        [InboxWorkQueueUri] like @Match
+    or
+        [CronExpression] like @Match
+    )
 order by
 	[Name],
     [InboxWorkQueueUri]

@@ -64,7 +64,15 @@ else
         public IQuery Save(Schedule schedule)
         {
             return RawQuery.Create(@"
-if not exists (select null from [dbo].[Schedule] where [Name] = @Name)
+if not exists 
+(
+    select 
+        null 
+    from 
+        [dbo].[Schedule] 
+    where
+        [Id] = @Id
+)
 	insert into [dbo].[Schedule]
 	(
         [Id],

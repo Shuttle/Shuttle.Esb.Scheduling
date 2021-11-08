@@ -125,6 +125,7 @@ select
 from
 	[dbo].[Schedule]
 where
+(
     @Match is null
 or
     (
@@ -134,10 +135,18 @@ or
     or
         [CronExpression] like @Match
     )
+)
+and
+(
+    @Id is null
+    or
+    Id = @Id
+)
 order by
 	[Name],
     [InboxWorkQueueUri]
 ")
+                .AddParameterValue(ScheduleColumns.Id, specification.Id)
                 .AddParameterValue(ScheduleColumns.Match, string.IsNullOrWhiteSpace(specification.FuzzyMatch) ? null : $"%{specification.FuzzyMatch}%");
         }
     }

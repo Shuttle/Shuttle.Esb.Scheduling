@@ -12,11 +12,20 @@ namespace Shuttle.Esb.Scheduling.Query
 
         public class Specification
         {
+            public Guid? Id { get; private set; }
+
             public string FuzzyMatch { get; private set; }
 
             public Specification MatchingFuzzy(string fuzzyMatch)
             {
                 FuzzyMatch = fuzzyMatch;
+
+                return this;
+            }
+
+            public Specification WithId(Guid id)
+            {
+                Id = id;
 
                 return this;
             }

@@ -107,7 +107,7 @@ else
                 .AddParameterValue(ScheduleColumns.NextNotification, schedule.NextNotification);
         }
 
-        public IQuery SaveNextNotification(Schedule schedule)
+        public IQuery SetNextNotification(Guid id, DateTime nextNotification)
         {
             return RawQuery.Create(@"
 update 
@@ -117,8 +117,8 @@ set
 where
 	[Id] = @Id
 ")
-                .AddParameterValue(ScheduleColumns.Id, schedule.Id)
-                .AddParameterValue(ScheduleColumns.NextNotification, schedule.NextNotification);
+                .AddParameterValue(ScheduleColumns.Id, id)
+                .AddParameterValue(ScheduleColumns.NextNotification, nextNotification);
         }
 
         public IQuery Search(Query.Schedule.Specification specification)

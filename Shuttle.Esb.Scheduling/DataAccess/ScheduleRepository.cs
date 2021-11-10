@@ -28,9 +28,9 @@ namespace Shuttle.Esb.Scheduling
             return _dataRepository.FetchAllUsing(_queryFactory.All());
         }
 
-        public void SaveNextNotification(Schedule schedule)
+        public void SetNextNotification(Guid id, DateTime nextNotification)
         {
-            _databaseGateway.ExecuteUsing(_queryFactory.SaveNextNotification(schedule));
+            _databaseGateway.ExecuteUsing(_queryFactory.SetNextNotification(id, nextNotification));
         }
 
         public void Save(Schedule schedule)

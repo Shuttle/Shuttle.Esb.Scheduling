@@ -92,7 +92,7 @@ namespace Shuttle.Esb.Scheduling.Server
 
                         schedule.SetNextNotification();
 
-                        _repository.SaveNextNotification(schedule);
+                        _repository.SetNextNotification(schedule);
                     }
                 }
 

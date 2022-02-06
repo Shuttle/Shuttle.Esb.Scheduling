@@ -37,9 +37,9 @@ namespace Shuttle.Esb.Scheduling.Server
             container.RegisterSuffixed("Shuttle.Esb.Scheduling");
             container.RegisterInstance(SchedulingSection.Configuration());
 
-            ServiceBus.Register(container);
+            container.RegisterServiceBus();
 
-            _bus = ServiceBus.Create(container).Start();
+            _bus = container.Resolve<IServiceBus>().Start();
 
             _repository = _container.Resolve<IScheduleRepository>();
             _configuration = _container.Resolve<ISchedulingConfiguration>();

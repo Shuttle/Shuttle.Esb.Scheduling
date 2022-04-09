@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2026
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31424.327
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shuttle.Esb.Scheduling", "Shuttle.Esb.Scheduling\Shuttle.Esb.Scheduling.csproj", "{CD05BDBF-63CB-48F1-96F8-CB75F2CF01CB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shuttle.Esb.Scheduling.Server", "Shuttle.Esb.Scheduling.Server\Shuttle.Esb.Scheduling.Server.csproj", "{749E8B32-F490-48E0-B281-3CB24FCE7088}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shuttle.Esb.Scheduling.Messages", "Shuttle.Esb.Scheduling.Messages\Shuttle.Esb.Scheduling.Messages.csproj", "{9919D4E0-EB84-4920-B7D1-C8DA273FD4C5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shuttle.Esb.Scheduling.Messages", "Shuttle.Esb.Scheduling.Messages\Shuttle.Esb.Scheduling.Messages.csproj", "{9919D4E0-EB84-4920-B7D1-C8DA273FD4C5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shuttle.Esb.Scheduling.WebApi", "Shuttle.Esb.Scheduling.WebApi\Shuttle.Esb.Scheduling.WebApi.csproj", "{51386609-3948-4D6D-B5C3-2B3F1C7E5F6F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{9919D4E0-EB84-4920-B7D1-C8DA273FD4C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9919D4E0-EB84-4920-B7D1-C8DA273FD4C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9919D4E0-EB84-4920-B7D1-C8DA273FD4C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51386609-3948-4D6D-B5C3-2B3F1C7E5F6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51386609-3948-4D6D-B5C3-2B3F1C7E5F6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51386609-3948-4D6D-B5C3-2B3F1C7E5F6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51386609-3948-4D6D-B5C3-2B3F1C7E5F6F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

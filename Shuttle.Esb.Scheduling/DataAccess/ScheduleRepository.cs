@@ -25,27 +25,27 @@ namespace Shuttle.Esb.Scheduling
 
         public IEnumerable<Schedule> All()
         {
-            return _dataRepository.FetchAllUsing(_queryFactory.All());
+            return _dataRepository.FetchItems(_queryFactory.All());
         }
 
         public void SetNextNotification(Guid id, DateTime nextNotification)
         {
-            _databaseGateway.ExecuteUsing(_queryFactory.SetNextNotification(id, nextNotification));
+            _databaseGateway.Execute(_queryFactory.SetNextNotification(id, nextNotification));
         }
 
         public void Save(Schedule schedule)
         {
-            _databaseGateway.ExecuteUsing(_queryFactory.Save(schedule));
+            _databaseGateway.Execute(_queryFactory.Save(schedule));
         }
 
         public void Remove(Guid id)
         {
-            _databaseGateway.ExecuteUsing(_queryFactory.Remove(id));
+            _databaseGateway.Execute(_queryFactory.Remove(id));
         }
 
         public bool Contains(string name, string inboxWorkQueueUri, string cronExpression)
         {
-            return _databaseGateway.GetScalarUsing<int>(_queryFactory.Contains(name, inboxWorkQueueUri,
+            return _databaseGateway.GetScalar<int>(_queryFactory.Contains(name, inboxWorkQueueUri,
                        cronExpression)) == 1;
         }
     }

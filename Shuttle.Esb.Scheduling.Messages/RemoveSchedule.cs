@@ -2,7 +2,7 @@ using System;
 
 namespace Shuttle.Esb.Scheduling.Messages
 {
-	public class RemoveScheduleCommand
+	public class RemoveSchedule
 	{
 		public Guid Id { get; set; }
 	}

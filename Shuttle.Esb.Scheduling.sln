@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31424.327
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shuttle.Esb.Scheduling", "Shuttle.Esb.Scheduling\Shuttle.Esb.Scheduling.csproj", "{CD05BDBF-63CB-48F1-96F8-CB75F2CF01CB}"
 EndProject
@@ -10,6 +10,13 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shuttle.Esb.Scheduling.Messages", "Shuttle.Esb.Scheduling.Messages\Shuttle.Esb.Scheduling.Messages.csproj", "{9919D4E0-EB84-4920-B7D1-C8DA273FD4C5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shuttle.Esb.Scheduling.WebApi", "Shuttle.Esb.Scheduling.WebApi\Shuttle.Esb.Scheduling.WebApi.csproj", "{51386609-3948-4D6D-B5C3-2B3F1C7E5F6F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".package", ".package", "{7EC6DD2E-A81F-42D1-8E1D-3284B55C7921}"
+	ProjectSection(SolutionItems) = preProject
+		.package\package.msbuild = .package\package.msbuild
+		.package\Shuttle.Esb.Scheduling.Server.appsettings.json = .package\Shuttle.Esb.Scheduling.Server.appsettings.json
+		.package\Shuttle.Esb.Scheduling.Server.Dockerfile = .package\Shuttle.Esb.Scheduling.Server.Dockerfile
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

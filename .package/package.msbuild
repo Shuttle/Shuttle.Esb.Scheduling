@@ -1,0 +1,29 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Package" ToolsVersion="15">
+	<PropertyGroup>
+		<LinuxRuntimeIdentifier>linux-x64</LinuxRuntimeIdentifier>
+		<OutputFolder Condition="'$(OutputFolder)' == ''">$(MSBuildProjectDirectory)</OutputFolder>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<LinuxProjectReference Include="../Shuttle.Esb.Scheduling.Server/Shuttle.Esb.Scheduling.Server.csproj">
+			<DockerFile>Shuttle.Esb.Scheduling.Server.Dockerfile</DockerFile>
+			<AppSettingsFile>Shuttle.Esb.Scheduling.Server.appsettings.json</AppSettingsFile>
+		</LinuxProjectReference>
+		<DockerFile Include="deployment\Shuttle.Esb.Scheduling.Server">
+			<Name>shuttle/scheduling-server</Name>
+		</DockerFile>
+	</ItemGroup>
+
+	<Target Name="Package">
+		<Exec
+			Command="dotnet publish %(LinuxProjectReference.Identity) -c Release -f net6.0 -r $(LinuxRuntimeIdentifier) --self-contained false --output $(OutputFolder)/deployment/%(LinuxProjectReference.Filename)/bin /p:nowarn=0168 /p:nowarn=0169 /p:nowarn=1591 /p:nowarn=0414 /p:nowarn=NU1605 /verbosity:quiet /consoleloggerparameters:ErrorsOnly" />
+		<Copy SourceFiles="%(LinuxProjectReference.DockerFile)"
+		      DestinationFiles="$(OutputFolder)/deployment/%(LinuxProjectReference.Filename)/Dockerfile"
+		      SkipUnchangedFiles="false" />	
+		<Copy SourceFiles="%(LinuxProjectReference.AppSettingsFile)"
+		      DestinationFiles="$(OutputFolder)/deployment/%(LinuxProjectReference.Filename)/%(LinuxProjectReference.AppSettingsFile)"
+		      SkipUnchangedFiles="false" />
+		<Exec
+			Command="docker build -t %(DockerFile.Name):latest %(DockerFile.Identity)" />
+	</Target>
+</Project>

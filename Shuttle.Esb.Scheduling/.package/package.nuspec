@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+
+<package>
+	<metadata>
+		<id>Shuttle.Esb.Scheduling</id>
+		<version>13.0.0</version>
+		<authors>Eben Roux</authors>
+		<owners>Eben Roux</owners>
+		<license type="expression">BSD-3-Clause</license>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<icon>images\logo.png</icon>
+		<readme>docs\README.md</readme>
+		<repository type="git" url="https://github.com/Shuttle/Shuttle.Esb.Scheduling.git" />
+		<projectUrl>https://github.com/Shuttle/Shuttle.Esb.Scheduling</projectUrl>
+		<description>Scheduling solution built on Shuttle.Esb.</description>
+		<copyright>Copyright (c) 2022, Eben Roux</copyright>
+		<tags>scheduling cron crontab</tags>
+		<dependencies>
+      <dependency id="Shuttle.Core.Cron" version="10.1.0" />
+      <dependency id="Shuttle.Core.Data" version="12.0.2" />
+      <dependency id="System.Configuration.ConfigurationManager" version="6.0.0" />
+		</dependencies>
+	</metadata>
+	<files>
+		<file src="..\..\..\.media\logo.png" target="images" />
+		<file src="..\..\..\README.md" target="docs" />
+		<file src="lib\**\*.*" target="lib" />
+	</files>
+</package>

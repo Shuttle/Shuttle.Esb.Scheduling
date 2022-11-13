@@ -1,0 +1,12 @@
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "__Logging.LogLevel.Default__"
+    }
+  },
+  "ConnectionStrings": {
+    "azure": "__AzureStorageAccountConnectionString__",
+    "Schedule": "__ScheduleConnectionString__",
+    "Subscription": "__SubscriptionConnectionString__"
+  }
+}

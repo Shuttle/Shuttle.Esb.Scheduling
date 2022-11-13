@@ -1,5 +1,6 @@
 ﻿using System;
 using Shuttle.Core.Data;
+using Shuttle.Esb.Scheduling.DataAccess;
 
 namespace Shuttle.Esb.Scheduling
 {
@@ -32,7 +33,7 @@ order by
         public IQuery Remove(Guid id)
         {
             return RawQuery.Create(@"delete from [dbo].[Schedule] where [Id] = @Id")
-                .AddParameterValue(ScheduleColumns.Id, id);
+                .AddParameterValue(Columns.Id, id);
         }
 
         public IQuery Contains(string name, string inboxWorkQueueUri, string cronExpression)
@@ -48,17 +49,14 @@ if exists
     where 
         [Name] = @Name
     and
-        [InboxWorkQueueUri] = @InboxWorkQueueUri
-    and
         [CronExpression] = @CronExpression
 ) 
     select 1 
 else 
     select 0
 ")
-                .AddParameterValue(ScheduleColumns.Name, name)
-                .AddParameterValue(ScheduleColumns.InboxWorkQueueUri, inboxWorkQueueUri)
-                .AddParameterValue(ScheduleColumns.CronExpression, cronExpression);
+                .AddParameterValue(Columns.Name, name)
+                .AddParameterValue(Columns.CronExpression, cronExpression);
         }
 
         public IQuery Save(Schedule schedule)
@@ -77,7 +75,6 @@ if not exists
 	(
         [Id],
 		[Name],
-		[InboxWorkQueueUri],
 		[CronExpression],
 		[NextNotification]
 	)
@@ -85,7 +82,6 @@ if not exists
 	(
         @Id,
 		@Name,
-		@InboxWorkQueueUri,
 		@CronExpression,
 		@NextNotification
 	)
@@ -94,17 +90,15 @@ else
         [dbo].[Schedule] 
     set
         [Name] = @Name,
-		[InboxWorkQueueUri] = @InboxWorkQueueUri,
 		[CronExpression] = @CronExpression,
 		[NextNotification] = @NextNotification
 	where
 		[Id] = @Id
 ")
-                .AddParameterValue(ScheduleColumns.Id, schedule.Id)
-                .AddParameterValue(ScheduleColumns.Name, schedule.Name)
-                .AddParameterValue(ScheduleColumns.InboxWorkQueueUri, schedule.InboxWorkQueueUri)
-                .AddParameterValue(ScheduleColumns.CronExpression, schedule.CronExpression)
-                .AddParameterValue(ScheduleColumns.NextNotification, schedule.NextNotification);
+                .AddParameterValue(Columns.Id, schedule.Id)
+                .AddParameterValue(Columns.Name, schedule.Name)
+                .AddParameterValue(Columns.CronExpression, schedule.CronExpression)
+                .AddParameterValue(Columns.NextNotification, schedule.NextNotification);
         }
 
         public IQuery SetNextNotification(Guid id, DateTime nextNotification)
@@ -117,8 +111,8 @@ set
 where
 	[Id] = @Id
 ")
-                .AddParameterValue(ScheduleColumns.Id, id)
-                .AddParameterValue(ScheduleColumns.NextNotification, nextNotification);
+                .AddParameterValue(Columns.Id, id)
+                .AddParameterValue(Columns.NextNotification, nextNotification);
         }
 
         public IQuery Search(Query.Schedule.Specification specification)
@@ -127,7 +121,6 @@ where
 select
     [Id],
 	[Name],
-	[InboxWorkQueueUri],
 	[CronExpression],
 	[NextNotification]
 from
@@ -139,8 +132,6 @@ or
     (
         [Name] like @Match
     or
-        [InboxWorkQueueUri] like @Match
-    or
         [CronExpression] like @Match
     )
 )
@@ -151,11 +142,10 @@ and
     Id = @Id
 )
 order by
-	[Name],
-    [InboxWorkQueueUri]
+	[Name]
 ")
-                .AddParameterValue(ScheduleColumns.Id, specification.Id)
-                .AddParameterValue(ScheduleColumns.Match, string.IsNullOrWhiteSpace(specification.FuzzyMatch) ? null : $"%{specification.FuzzyMatch}%");
+                .AddParameterValue(Columns.Id, specification.Id)
+                .AddParameterValue(Columns.Match, string.IsNullOrWhiteSpace(specification.FuzzyMatch) ? null : $"%{specification.FuzzyMatch}%");
         }
     }
 }

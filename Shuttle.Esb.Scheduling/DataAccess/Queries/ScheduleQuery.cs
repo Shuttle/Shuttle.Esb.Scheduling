@@ -23,7 +23,7 @@ namespace Shuttle.Esb.Scheduling
 
 		public bool HasScheduleStructures()
 		{
-			return _databaseGateway.GetScalarUsing<int>(_queryFactory.HasScheduleStructures()) == 1;
+			return _databaseGateway.GetScalar<int>(_queryFactory.HasScheduleStructures()) == 1;
 		}
 
 		public IEnumerable<Query.Schedule> Search(Query.Schedule.Specification specification)

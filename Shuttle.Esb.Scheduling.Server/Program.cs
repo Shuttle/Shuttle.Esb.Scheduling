@@ -6,6 +6,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Shuttle.Core.Data;
 using Shuttle.Core.DependencyInjection;
 using Shuttle.Esb.AzureStorageQueues;
@@ -37,6 +38,11 @@ namespace Shuttle.Esb.Scheduling.Server
                     var configuration = new ConfigurationBuilder().AddJsonFile(appsettingsPath).Build();
 
                     services.AddSingleton<IConfiguration>(configuration);
+
+                    services.AddLogging(builder =>
+                    {
+                        builder.AddConsole();
+                    });
 
                     services.FromAssembly(Assembly.Load("Shuttle.Esb.Scheduling")).Add();
 

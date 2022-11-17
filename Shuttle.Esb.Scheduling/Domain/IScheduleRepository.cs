@@ -9,6 +9,6 @@ namespace Shuttle.Esb.Scheduling
 		void SetNextNotification(Guid id, DateTime nextNotification);
 		void Save(Schedule schedule);
 		void Remove(Guid id);
-	    bool Contains(string name, string inboxWorkQueueUri, string cronExpression);
+	    bool Contains(string name, string cronExpression);
 	}
 }

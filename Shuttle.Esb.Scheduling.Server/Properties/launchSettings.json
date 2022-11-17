@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Shuttle.Esb.Scheduling.Server": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "appsettingsPath": "appsettings.json"
+      }
+    }
+  }
+}

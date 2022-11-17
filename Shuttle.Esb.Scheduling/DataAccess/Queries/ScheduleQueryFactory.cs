@@ -12,14 +12,12 @@ namespace Shuttle.Esb.Scheduling
 select
     [Id],
 	[Name],
-	[InboxWorkQueueUri],
 	[CronExpression],
 	[NextNotification]
 from
 	[dbo].[Schedule]
 order by
-	[Name],
-    [InboxWorkQueueUri]
+	[Name]
 ");
         }
 
@@ -36,7 +34,7 @@ order by
                 .AddParameterValue(Columns.Id, id);
         }
 
-        public IQuery Contains(string name, string inboxWorkQueueUri, string cronExpression)
+        public IQuery Contains(string name, string cronExpression)
         {
             return RawQuery
                 .Create(@"

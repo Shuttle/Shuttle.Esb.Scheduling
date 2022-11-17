@@ -8,7 +8,7 @@ namespace Shuttle.Esb.Scheduling
 		IQuery All();
 		IQuery HasScheduleStructures();
 		IQuery Remove(Guid id);
-		IQuery Contains(string name, string inboxWorkQueueUri, string cronExpression);
+		IQuery Contains(string name, string cronExpression);
 		IQuery Save(Schedule schedule);
 		IQuery SetNextNotification(Guid id, DateTime nextNotification);
 	    IQuery Search(Query.Schedule.Specification specification);

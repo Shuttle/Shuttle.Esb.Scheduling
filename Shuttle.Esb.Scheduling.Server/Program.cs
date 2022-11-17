@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Data.Common;
-using System.Data.SqlClient;
 using System.IO;
+using System.Reflection;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Shuttle.Core.Data;
+using Shuttle.Core.DependencyInjection;
+using Shuttle.Esb.AzureStorageQueues;
 using Shuttle.Esb.Sql.Subscription;
 
 namespace Shuttle.Esb.Scheduling.Server
@@ -36,6 +38,8 @@ namespace Shuttle.Esb.Scheduling.Server
 
                     services.AddSingleton<IConfiguration>(configuration);
 
+                    services.FromAssembly(Assembly.Load("Shuttle.Esb.Scheduling")).Add();
+
                     services.AddScheduling(builder =>
                     {
                         builder.Options.ConnectionStringName = "Schedule";
@@ -53,6 +57,14 @@ namespace Shuttle.Esb.Scheduling.Server
                     });
 
                     services.AddSqlSubscription();
+
+                    services.AddAzureStorageQueues(builder =>
+                    {
+                        builder.AddOptions("azure", new AzureStorageQueueOptions
+                        {
+                            ConnectionString = configuration.GetConnectionString("azure")
+                        });
+                    });
 
                     services.AddHostedService<SchedulingHostedService>();
                 })

@@ -43,10 +43,9 @@ namespace Shuttle.Esb.Scheduling
             _databaseGateway.Execute(_queryFactory.Remove(id));
         }
 
-        public bool Contains(string name, string inboxWorkQueueUri, string cronExpression)
+        public bool Contains(string name, string cronExpression)
         {
-            return _databaseGateway.GetScalar<int>(_queryFactory.Contains(name, inboxWorkQueueUri,
-                       cronExpression)) == 1;
+            return _databaseGateway.GetScalar<int>(_queryFactory.Contains(name, cronExpression)) == 1;
         }
     }
 }

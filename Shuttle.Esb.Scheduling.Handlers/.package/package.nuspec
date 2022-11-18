@@ -2,7 +2,7 @@
 
 <package>
 	<metadata>
-		<id>Shuttle.Esb.Scheduling</id>
+		<id>Shuttle.Esb.Scheduling.Handlers</id>
 		<version>13.0.0</version>
 		<authors>Eben Roux</authors>
 		<owners>Eben Roux</owners>
@@ -12,14 +12,11 @@
 		<readme>docs\README.md</readme>
 		<repository type="git" url="https://github.com/Shuttle/Shuttle.Esb.Scheduling.git" />
 		<projectUrl>https://github.com/Shuttle/Shuttle.Esb.Scheduling</projectUrl>
-		<description>Scheduling solution built on Shuttle.Esb.</description>
+		<description>Handlers for use with a Shuttle.Scheduling endpoint.</description>
 		<copyright>Copyright (c) 2022, Eben Roux</copyright>
-		<tags>scheduling cron crontab</tags>
+		<tags></tags>
 		<dependencies>
-      <dependency id="Microsoft.Extensions.Hosting" version="7.0.0" />
-      <dependency id="Shuttle.Core.Cron" version="10.1.2" />
       <dependency id="Shuttle.Core.Data" version="13.0.1" />
-      <dependency id="Shuttle.Core.DependencyInjection" version="1.0.0" />
       <dependency id="Shuttle.Esb" version="13.2.0" />
 		</dependencies>
 	</metadata>

@@ -18,6 +18,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".package", ".package", "{7E
 		.package\Shuttle.Esb.Scheduling.Server.Dockerfile = .package\Shuttle.Esb.Scheduling.Server.Dockerfile
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shuttle.Esb.Scheduling.Handlers", "Shuttle.Esb.Scheduling.Handlers\Shuttle.Esb.Scheduling.Handlers.csproj", "{AEA9B16D-5E15-4C02-A5FE-292C0762D7A0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shuttle.Esb.Scheduling.Sql", "Shuttle.Esb.Scheduling.Sql\Shuttle.Esb.Scheduling.Sql.csproj", "{BC5A3C5F-C033-4FC1-BDFF-84109A23733C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{013AF338-B0FB-4275-B7C6-F27CB8060987}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -40,6 +50,14 @@ Global
 		{51386609-3948-4D6D-B5C3-2B3F1C7E5F6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{51386609-3948-4D6D-B5C3-2B3F1C7E5F6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{51386609-3948-4D6D-B5C3-2B3F1C7E5F6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AEA9B16D-5E15-4C02-A5FE-292C0762D7A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEA9B16D-5E15-4C02-A5FE-292C0762D7A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEA9B16D-5E15-4C02-A5FE-292C0762D7A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEA9B16D-5E15-4C02-A5FE-292C0762D7A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC5A3C5F-C033-4FC1-BDFF-84109A23733C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC5A3C5F-C033-4FC1-BDFF-84109A23733C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC5A3C5F-C033-4FC1-BDFF-84109A23733C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC5A3C5F-C033-4FC1-BDFF-84109A23733C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

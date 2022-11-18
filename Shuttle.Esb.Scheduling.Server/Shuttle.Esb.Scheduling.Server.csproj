@@ -21,7 +21,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Shuttle.Esb.Scheduling.Handlers\Shuttle.Esb.Scheduling.Handlers.csproj" />
     <ProjectReference Include="..\Shuttle.Esb.Scheduling.Messages\Shuttle.Esb.Scheduling.Messages.csproj" />
+    <ProjectReference Include="..\Shuttle.Esb.Scheduling.Sql\Shuttle.Esb.Scheduling.Sql.csproj" />
     <ProjectReference Include="..\Shuttle.Esb.Scheduling\Shuttle.Esb.Scheduling.csproj" />
   </ItemGroup>
 

@@ -2,7 +2,7 @@
 using Shuttle.Core.Data;
 using Shuttle.Esb.Scheduling.DataAccess;
 
-namespace Shuttle.Esb.Scheduling
+namespace Shuttle.Esb.Scheduling.Sql.SqlServer
 {
     public class ScheduleQueryFactory : IScheduleQueryFactory
     {

@@ -17,7 +17,6 @@ namespace Shuttle.Esb.Scheduling
             builder?.Invoke(schedulingBuilder);
 
             services.TryAddSingleton<IValidateOptions<SchedulingOptions>, SchedulingOptionsValidator>();
-            services.AddSingleton<IScheduleQueryFactory, ScheduleQueryFactory>();
             services.AddSingleton<IScheduleQuery, ScheduleQuery>();
             services.AddSingleton<IScheduleRepository, ScheduleRepository>();
 
@@ -28,6 +27,11 @@ namespace Shuttle.Esb.Scheduling
                 options.ScheduleProcessingInterval =
                     schedulingBuilder.Options.ScheduleProcessingInterval;
             });
+
+            if (!schedulingBuilder.Options.SuppressHostedService)
+            {
+                services.AddHostedService<SchedulingHostedService>();
+            }
 
             return services;
         }

@@ -3,7 +3,7 @@ using Shuttle.Core.Contract;
 using Shuttle.Core.Data;
 using Shuttle.Esb.Scheduling.Messages;
 
-namespace Shuttle.Esb.Scheduling.Server
+namespace Shuttle.Esb.Scheduling.Handlers
 {
 	public class RemoveScheduleHandler : IMessageHandler<RemoveSchedule>
 	{

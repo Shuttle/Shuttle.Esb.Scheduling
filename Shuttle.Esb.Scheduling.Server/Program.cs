@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using Shuttle.Core.Data;
 using Shuttle.Core.DependencyInjection;
 using Shuttle.Esb.AzureStorageQueues;
+using Shuttle.Esb.Scheduling.Sql;
 using Shuttle.Esb.Sql.Subscription;
 
 namespace Shuttle.Esb.Scheduling.Server
@@ -49,6 +50,8 @@ namespace Shuttle.Esb.Scheduling.Server
                     services.AddScheduling(builder =>
                     {
                         builder.Options.ConnectionStringName = "Schedule";
+
+                        builder.AddSqlServer();
                     });
 
                     services.AddDataAccess(builder =>
@@ -60,6 +63,8 @@ namespace Shuttle.Esb.Scheduling.Server
                     services.AddServiceBus(builder =>
                     {
                         builder.Options.Subscription.ConnectionStringName = "Subscription";
+
+                        builder.AddMessageHandlers(Assembly.Load("Shuttle.Esb.Scheduling.Handlers"));
                     });
 
                     services.AddSqlSubscription();
@@ -71,8 +76,6 @@ namespace Shuttle.Esb.Scheduling.Server
                             ConnectionString = configuration.GetConnectionString("azure")
                         });
                     });
-
-                    services.AddHostedService<SchedulingHostedService>();
                 })
                 .Build()
                 .Run();

@@ -8,5 +8,6 @@ namespace Shuttle.Esb.Scheduling
 
         public string ConnectionStringName { get; set; }
         public TimeSpan ScheduleProcessingInterval { get; set; } = TimeSpan.FromSeconds(15);
+        public bool SuppressHostedService { get; set; }
     }
 }

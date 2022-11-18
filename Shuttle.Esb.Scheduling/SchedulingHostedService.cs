@@ -14,7 +14,7 @@ namespace Shuttle.Esb.Scheduling
     public class SchedulingHostedService : IHostedService
     {
         private readonly CancellationToken _cancellationToken;
-        private readonly CancellationTokenSource _cancellationTokenSource = new();
+        private readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
         private readonly IOptionsMonitor<ConnectionStringOptions> _connectionStringOptions;
         private readonly IDatabaseContextFactory _databaseContextFactory;
         private readonly ILogger<SchedulingHostedService> _logger;

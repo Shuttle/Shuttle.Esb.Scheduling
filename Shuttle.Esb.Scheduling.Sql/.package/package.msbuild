@@ -55,14 +55,17 @@
 
     <ItemGroup>
       <NuGetBinaries Include="..\bin\$(Configuration)\**\$(PackageName).dll" />
+      <Scripts Include="..\.scripts\**\*.sql" />
     </ItemGroup>
 
     <RemoveDir Directories="release" />
 
     <Copy SourceFiles="package.nuspec" DestinationFolder="release\" SkipUnchangedFiles="false" />
     <Copy SourceFiles="@(NuGetBinaries)" DestinationFolder="release\lib\%(RecursiveDir)" SkipUnchangedFiles="false" />
+    <Copy SourceFiles="@(Scripts)"
+          DestinationFolder="release\scripts\%(RecursiveDir)" SkipUnchangedFiles="false" />
 
-    <Exec Command="nuget pack release\package.nuspec -OutputDirectory release -NoPackageAnalysis" />
+	  <Exec Command="nuget pack release\package.nuspec -OutputDirectory release -NoPackageAnalysis" />
   </Target>
 
   <Target Name="Push" DependsOnTargets="Version">

@@ -3,7 +3,7 @@
 <package>
 	<metadata>
 		<id>Shuttle.Esb.Scheduling.Sql</id>
-		<version>13.0.0</version>
+		<version>13.0.3</version>
 		<authors>Eben Roux</authors>
 		<owners>Eben Roux</owners>
 		<license type="expression">BSD-3-Clause</license>
@@ -23,5 +23,6 @@
 		<file src="..\..\..\.media\logo.png" target="images" />
 		<file src="..\..\..\README.md" target="docs" />
 		<file src="lib\**\*.*" target="lib" />
+		<file src="scripts\**\*.sql" target="scripts" />
 	</files>
 </package>

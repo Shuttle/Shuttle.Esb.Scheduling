@@ -23,5 +23,6 @@
 		<file src="..\..\..\.media\logo.png" target="images" />
 		<file src="..\..\..\README.md" target="docs" />
 		<file src="lib\**\*.*" target="lib" />
+		<file src="scripts\**\*.sql" target="scripts" />
 	</files>
 </package>

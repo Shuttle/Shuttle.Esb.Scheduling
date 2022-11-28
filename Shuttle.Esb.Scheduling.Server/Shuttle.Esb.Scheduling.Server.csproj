@@ -13,10 +13,10 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.0.1" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.0" />
-    <PackageReference Include="Shuttle.Core.Data" Version="13.0.1" />
-    <PackageReference Include="Shuttle.Esb" Version="13.2.0" />
-    <PackageReference Include="Shuttle.Esb.AzureStorageQueues" Version="13.2.0" />
-    <PackageReference Include="Shuttle.Esb.Sql.Subscription" Version="13.2.0" />
+    <PackageReference Include="Shuttle.Core.Data" Version="13.0.2" />
+    <PackageReference Include="Shuttle.Esb" Version="13.2.1" />
+    <PackageReference Include="Shuttle.Esb.AzureStorageQueues" Version="13.2.1" />
+    <PackageReference Include="Shuttle.Esb.Sql.Subscription" Version="13.2.2" />
     <PackageReference Include="System.Net.NameResolution" Version="4.3.0" />
   </ItemGroup>
 

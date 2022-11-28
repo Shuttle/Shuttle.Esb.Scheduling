@@ -15,10 +15,10 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.0" />
-        <PackageReference Include="Shuttle.Core.Cron" Version="10.1.2" />
-        <PackageReference Include="Shuttle.Core.Data" Version="13.0.1" />
-        <PackageReference Include="Shuttle.Core.DependencyInjection" Version="1.0.0" />
-        <PackageReference Include="Shuttle.Esb" Version="13.2.0" />
+        <PackageReference Include="Shuttle.Core.Cron" Version="10.1.3" />
+        <PackageReference Include="Shuttle.Core.Data" Version="13.0.2" />
+        <PackageReference Include="Shuttle.Core.DependencyInjection" Version="1.0.1" />
+        <PackageReference Include="Shuttle.Esb" Version="13.2.1" />
     </ItemGroup>
 
     <ItemGroup>

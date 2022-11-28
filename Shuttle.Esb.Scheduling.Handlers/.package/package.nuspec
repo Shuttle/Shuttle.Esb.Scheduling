@@ -3,7 +3,7 @@
 <package>
 	<metadata>
 		<id>Shuttle.Esb.Scheduling.Handlers</id>
-		<version>13.0.0</version>
+		<version>13.0.1</version>
 		<authors>Eben Roux</authors>
 		<owners>Eben Roux</owners>
 		<license type="expression">BSD-3-Clause</license>
@@ -16,8 +16,8 @@
 		<copyright>Copyright (c) 2022, Eben Roux</copyright>
 		<tags></tags>
 		<dependencies>
-      <dependency id="Shuttle.Core.Data" version="13.0.1" />
-      <dependency id="Shuttle.Esb" version="13.2.0" />
+      <dependency id="Shuttle.Core.Data" version="13.0.2" />
+      <dependency id="Shuttle.Esb" version="13.2.1" />
 		</dependencies>
 	</metadata>
 	<files>
